@@ -7,15 +7,15 @@ import java.util.Date;
  *
  */
 public class Site {
-	private int sid;
+	private Integer id;
 	private String sname;
-	private String desc;
-	private String createTime;
-	public int getSid() {
-		return sid;
+	private String description;
+	private Date create_time;
+	public Integer getId() {
+		return id;
 	}
-	public void setSid(int sid) {
-		this.sid = sid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getSname() {
 		return sname;
@@ -23,30 +23,32 @@ public class Site {
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public String getCreateTime() {
-		return createTime;
+	
+	public Date getCreate_time() {
+		return create_time;
 	}
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
+	public void setCreate_time(Date create_time) {
+		this.create_time = create_time;
 	}
-	public Site(int sid, String sname, String desc, String createTime) {
-		super();
-		this.sid = sid;
-		this.sname = sname;
-		this.desc = desc;
-		this.createTime = createTime;
+	@Override
+	public String toString() {
+		return "Site [id=" + id + ", sname=" + sname + ", description=" + description + ", create_time=" + create_time
+				+ "]";
 	}
 	public Site() {
 		super();
 	}
-	@Override
-	public String toString() {
-		return "Site [sid=" + sid + ", sname=" + sname + ", desc=" + desc + ", createTime=" + createTime + "]";
-	}	
+	public Site(Integer id, String sname, String description, Date create_time) {
+		super();
+		this.id = id;
+		this.sname = sname;
+		this.description = description;
+		this.create_time = create_time;
+	}
 }

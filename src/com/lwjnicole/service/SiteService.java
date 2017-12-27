@@ -1,6 +1,7 @@
 package com.lwjnicole.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.lwjnicole.domain.Site;
 
@@ -12,5 +13,7 @@ import com.lwjnicole.domain.Site;
 public interface SiteService {
 
 	void addSite(Site site) throws SQLException;
+
+	List<Site> findAllSite() throws SQLException;
 
 }

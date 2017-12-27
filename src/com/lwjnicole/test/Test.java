@@ -1,10 +1,14 @@
 package com.lwjnicole.test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+
+import com.lwjnicole.domain.Site;
+import com.lwjnicole.utils.JDBCUtils;
 
 /**
  *
@@ -21,28 +25,21 @@ import java.sql.Statement;
 public class Test {
 	
 	public static void main(String[] args) {
+	//	Site site = new Site();
+		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+	//	String sql = "select * from site order by create_time desc";
+		String sql = "select * from site order by create_time desc limit 1";
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			try {
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/autoplatform", "root", "123456");
-				Statement stat	 = conn.createStatement();
-				
-				String sql = "select * from user where username = 'admin' and pwd = '123456'";
-				ResultSet rs = stat.executeQuery(sql);
-				while(rs.next()){
-					String username = rs.getString("username");
-					System.out.println(username);
-				}
-				
-				conn.close();
-				stat.close();
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		} catch (ClassNotFoundException e) {
-
+	//		List<Site> list = qr.query(sql, new BeanListHandler<Site>(Site.class));
+		Site site = qr.query(sql, new BeanHandler<Site>(Site.class));
+		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(site.getCreate_time()));
+		System.out.println(site.toString());
+			/*for (Site site2 : list) {
+				System.out.println(site2.toString());
+			}*/
+		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
 		
 	}

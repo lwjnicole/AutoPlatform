@@ -1,6 +1,7 @@
 package com.lwjnicole.service.impl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.lwjnicole.Dao.SiteDao;
 import com.lwjnicole.domain.Site;
@@ -21,6 +22,12 @@ public class SiteServiceImpl implements SiteService {
 	public void addSite(Site site) throws SQLException{
 		SiteDao siteDao = (SiteDao) BeanFactory.getBean("siteDao");
 		siteDao.addSite(site);
+	}
+
+	@Override
+	public List<Site> findAllSite() throws SQLException {
+		SiteDao siteDao = (SiteDao) BeanFactory.getBean("siteDao");
+		return siteDao.findAllSite();
 	}
 
 }

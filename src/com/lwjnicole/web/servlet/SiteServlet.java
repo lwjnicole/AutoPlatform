@@ -1,7 +1,9 @@
 package com.lwjnicole.web.servlet;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.lwjnicole.domain.Site;
 import com.lwjnicole.service.SiteService;
 import com.lwjnicole.utils.BeanFactory;
+import com.lwjnicole.vo.SiteVo;
 
 /**
  * 站点模块的servlet
@@ -40,18 +43,44 @@ public class SiteServlet extends BaseServlet {
 			//封装参数
 			Site site = new Site();
 			site.setSname(sname);
-			site.setDesc(desc);
+			site.setDescription(desc);
 			
-			String sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-			site.setCreateTime(sdf);
+//			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+			site.setCreate_time(new Date());
 			//调用业务层
 			SiteService siteService =  (SiteService) BeanFactory.getBean("siteService");
 			siteService.addSite(site);
+			//页面跳转
+			response.sendRedirect(request.getContextPath() + "/SiteServlet?method=findAllSite");
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-		//页面跳转
-		return "/view/siteList.jsp";		
+		
+		return null;		
+	}
+	
+	public String findAllSite(HttpServletRequest request,HttpServletResponse response){
+		List<SiteVo> siteListVo  = new ArrayList<SiteVo>();		
+		try{
+			//调用业务层
+			SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+			List<Site> siteList = siteService.findAllSite();
+			//遍历查询出来的siteList，将值赋给siteVo对象，用于展示数据
+			for (Site site : siteList) {
+				SiteVo siteVo = new SiteVo();
+				siteVo.setId(site.getId());
+				siteVo.setSname(site.getSname());
+				siteVo.setDescription(site.getDescription());
+				siteVo.setCreate_time(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(site.getCreate_time()));
+				siteListVo.add(siteVo);			
+			}
+			request.setAttribute("siteListVo",siteListVo);
+			//页面跳转
+			return "/view/siteList.jsp";
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}		
 	}
 }
