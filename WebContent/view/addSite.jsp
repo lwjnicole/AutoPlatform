@@ -95,11 +95,12 @@
 
 							<div class="portlet-body form">
 								<!-- BEGIN FORM-->
-								<form action="#" class="form-horizontal">
+								<form action="${pageContext.request.contextPath}/SiteServlet" class="form-horizontal" method="post">
+								<input type="hidden" name="method" value="addSite">
 									<div class="control-group">
 										<label class="control-label">站点名称</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" />
+											<input type="text" class="span6 m-wrap" name="sname" />
 											<span class="help-inline"></span>
 										</div>
 									</div>
@@ -107,7 +108,7 @@
 									<div class="control-group">
 										<label class="control-label">站点描述</label>
 										<div class="controls">
-											<textarea class="span6 m-wrap" rows="3"></textarea>
+											<textarea class="span6 m-wrap" rows="3" name="desc"></textarea>
 										</div>
 									</div>
 
@@ -115,7 +116,7 @@
 									<div class="form-actions">
 										<button type="submit" class="btn blue">保存</button>
 										&nbsp;&nbsp;
-										<button type="button" class="btn">取消</button>                            
+										<button type="button" class="btn" onclick="cancel()">取消</button>                            
 									</div>
 								</form>
 								<!-- END FORM-->       
@@ -182,6 +183,12 @@
 		   App.init();
 		   FormComponents.init();
 		});
+	</script>
+	
+	<script type="text/javascript">
+		function cancel() {
+			window.location.href="${pageContext.request.contextPath}/view/siteList.jsp";
+		}
 	</script>
 	<!-- END JAVASCRIPTS -->   
 

@@ -85,7 +85,7 @@
 							<div class="portlet-body">
 								<div class="clearfix">
 									<div class="btn-group">
-										<a id="sample_editable_1_new" class="btn green" role="button" href="${pageContext.request.contextPath}/view/addSite.jsp">
+										<a id="sample_editable_1_new" class="btn green" role="button" href="${pageContext.request.contextPath}/SiteServlet?method=addSiteUI">
 										新增&nbsp;&nbsp;<i class="icon-plus"></i>
 										</a>
 									</div>
