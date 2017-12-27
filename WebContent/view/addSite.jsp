@@ -100,8 +100,8 @@
 									<div class="control-group">
 										<label class="control-label">站点名称</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" name="sname" />
-											<span class="help-inline"></span>
+											<input type="text" class="span6 m-wrap" name="sname" id="sname"/>
+											<span class="help-inline" id="spanid"></span>
 										</div>
 									</div>
 
@@ -111,10 +111,9 @@
 											<textarea class="span6 m-wrap" rows="3" name="desc"></textarea>
 										</div>
 									</div>
-
 								
 									<div class="form-actions">
-										<button type="submit" class="btn blue">保存</button>
+										<button type="submit" class="btn blue" id="submit">保存</button>
 										&nbsp;&nbsp;
 										<button type="button" class="btn" onclick="cancel()">取消</button>                            
 									</div>
@@ -187,8 +186,23 @@
 	
 	<script type="text/javascript">
 		function cancel() {
-			window.location.href="${pageContext.request.contextPath}/view/siteList.jsp";
+			window.location.href="${pageContext.request.contextPath}/SiteServlet?method=findAllSite";
 		}
+	</script>
+	
+	<script type="text/javascript">
+		$(function(){
+			$("#sname").blur(function(){
+				var value = $(this).val();
+				if(value == ""){
+					$("#spanid").html("<font style='color: red;'>站点名称不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else {
+					$("#spanid").html("");
+					$("#submit").removeAttr("disabled");
+				}				
+			})
+		})			
 	</script>
 	<!-- END JAVASCRIPTS -->   
 

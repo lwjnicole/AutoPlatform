@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,15 +115,16 @@
 									</thead>
 
 									<tbody>
+									<c:forEach var="s" items="${siteListVo}" varStatus="Status">
 										<tr class="">
-											<td>1</td>
-											<td>ESB</td>
-											<td>企业资源总线</td>
-											<td>2017-12-22</td>
+											<td>${Status.count}</td>
+											<td>${s.sname }</td>
+											<td>${s.description}</td>
+											<td>${s.create_time}</td>
 											<td><a href="${pageContext.request.contextPath}/view/editSite.jsp" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
 										</tr>
-
-										<tr class="">
+									</c:forEach>
+										<!-- <tr class="">
 											<td>2</td>
 											<td>CRM</td>
 											<td>客户管理系统</td>
@@ -168,7 +170,7 @@
 											<td>1234</td>
 											<td>2017-12-22</td>
 											<td><a href="#" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 							</div>

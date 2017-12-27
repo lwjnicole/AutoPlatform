@@ -32,7 +32,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li >
-							<a href="${pageContext.request.contextPath}/view/siteList.jsp">站点管理</a>
+							<a href="${pageContext.request.contextPath}/SiteServlet?method=findAllSite">站点管理</a>
 						</li>
 					</ul>
 				</li>
