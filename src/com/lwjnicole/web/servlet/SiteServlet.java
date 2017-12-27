@@ -41,11 +41,13 @@ public class SiteServlet extends BaseServlet {
 			String sname = request.getParameter("sname");
 			String desc = request.getParameter("desc");
 			//封装参数
+			if(sname.equals("")){
+				request.setAttribute("msg", "站点名称不能为空");
+				return "/view/addSite.jsp";
+			}
 			Site site = new Site();
 			site.setSname(sname);
-			site.setDescription(desc);
-			
-//			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+			site.setDescription(desc);		
 			site.setCreate_time(new Date());
 			//调用业务层
 			SiteService siteService =  (SiteService) BeanFactory.getBean("siteService");
