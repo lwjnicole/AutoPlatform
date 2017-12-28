@@ -95,27 +95,29 @@
 
 							<div class="portlet-body form">
 								<!-- BEGIN FORM-->
-								<form action="#" class="form-horizontal">
+								<form action="${pageContext.request.contextPath}/SiteServlet" class="form-horizontal" method="post">
+								<input type="hidden" name="method" value="updateSite"/>
+								<input type="hidden"name="sid" value="${site.sid}">
 									<div class="control-group">
 										<label class="control-label">站点名称</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" />
-											<span class="help-inline"></span>
+											<input type="text" class="span6 m-wrap" name="sname" id="sname" value="${site.sname}"/>
+											<span class="help-inline" id="spanid"></span>
 										</div>
 									</div>
 
 									<div class="control-group">
 										<label class="control-label">站点描述</label>
 										<div class="controls">
-											<textarea class="span6 m-wrap" rows="3"></textarea>
+											<textarea class="span6 m-wrap" rows="3" name="desc" >${site.description}</textarea>
 										</div>
 									</div>
 
 								
 									<div class="form-actions">
-										<button type="submit" class="btn blue">保存</button>
+										<button type="submit" class="btn blue" id="submit">保存</button>
 										&nbsp;&nbsp;
-										<button type="button" class="btn">取消</button>                            
+										<button type="button" class="btn" onclick="cancel()">取消</button>                            
 									</div>
 								</form>
 								<!-- END FORM-->       
@@ -182,6 +184,27 @@
 		   App.init();
 		   FormComponents.init();
 		});
+	</script>
+	
+	<script type="text/javascript">
+		function cancel() {
+			window.location.href="${pageContext.request.contextPath}/SiteServlet?method=findAllSite";
+		}
+	</script>
+	
+	<script type="text/javascript">
+		$(function(){
+			$("#sname").blur(function(){
+				var value = $(this).val();
+				if(value == ""){
+					$("#spanid").html("<font style='color: red;'>站点名称不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else {
+					$("#spanid").html("");
+					$("#submit").removeAttr("disabled");
+				}				
+			})
+		})			
 	</script>
 	<!-- END JAVASCRIPTS -->   
 

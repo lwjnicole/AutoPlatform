@@ -121,56 +121,9 @@
 											<td>${s.sname }</td>
 											<td>${s.description}</td>
 											<td>${s.create_time}</td>
-											<td><a href="${pageContext.request.contextPath}/view/editSite.jsp" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
+											<td><a href="${pageContext.request.contextPath}/SiteServlet?method=editSiteUI&sid=${s.sid}" class="edit">编辑</a>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/SiteServlet?method=delSite&sid=${s.sid}" class="delete" onclick="return del()">删除</a></td>
 										</tr>
-									</c:forEach>
-										<!-- <tr class="">
-											<td>2</td>
-											<td>CRM</td>
-											<td>客户管理系统</td>
-											<td>2017-12-22</td>
-											<td><a href="#" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
-										</tr>
-										
-										<tr class="">
-											<td>3</td>
-											<td>AutoCredit</td>
-											<td>指尖钱包信贷系统</td>
-											<td>2017-12-22</td>
-											<td><a href="#" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
-										</tr>
-										
-										<tr class="">
-											<td>4</td>
-											<td>TPP</td>
-											<td>交易系统</td>
-											<td>2017-12-22</td>
-											<td><a href="#" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
-										</tr>
-										
-										<tr class="">
-											<td>5</td>
-											<td>Credit</td>
-											<td>指尖贷信贷系统</td>
-											<td>2017-12-22</td>
-											<td><a href="#" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
-										</tr>
-										
-										<tr class="">
-											<td>6</td>
-											<td>Alex Nilson</td>
-											<td>1234</td>
-											<td>2017-12-22</td>
-											<td><a href="#" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
-										</tr>
-										
-										<tr class="">
-											<td>7</td>
-											<td>Alex Nilson</td>
-											<td>1234</td>
-											<td>2017-12-22</td>
-											<td><a href="#" class="edit">编辑</a>&nbsp;&nbsp;<a href="#" class="delete">删除</a></td>
-										</tr> -->
+									</c:forEach>										
 									</tbody>
 								</table>
 							</div>
@@ -218,6 +171,14 @@
 		   App.init();
 		   TableEditable.init(); 
 		});
+	</script>
+	<script type="text/javascript">
+		function del(){
+			if(confirm("您确认删除该记录吗?")){
+				return true;
+			}
+			return false;
+		}
 	</script>
 
 <script type="text/javascript">  var _gaq = _gaq || [];  _gaq.push(['_setAccount', 'UA-37564768-1']);  _gaq.push(['_setDomainName', 'keenthemes.com']);  _gaq.push(['_setAllowLinker', true]);  _gaq.push(['_trackPageview']);  (function() {    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();</script></body>
