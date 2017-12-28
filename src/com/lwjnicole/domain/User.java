@@ -12,13 +12,14 @@ package com.lwjnicole.domain;
  * @Description 
  */
 public class User {
-	private String id;
+	private Integer id;
 	private String username;
 	private String pwd;
-	public String getId() {
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getUsername() {
@@ -36,7 +37,8 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(String id, String username, String pwd) {
+	
+	public User(Integer id, String username, String pwd) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -45,6 +47,5 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", pwd=" + pwd + "]";
-	}
-	
+	}	
 }
