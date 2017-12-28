@@ -59,11 +59,16 @@ public class SiteServlet extends BaseServlet {
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
-		}
-		
+		}		
 		return null;		
 	}
 	
+	/**
+	 * 查询所有站点
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String findAllSite(HttpServletRequest request,HttpServletResponse response){
 		List<SiteVo> siteListVo  = new ArrayList<SiteVo>();		
 		try{
@@ -87,5 +92,73 @@ public class SiteServlet extends BaseServlet {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}		
+	}
+	
+	/**
+	 * 跳转到编辑站点页面
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public String editSiteUI(HttpServletRequest request,HttpServletResponse response){
+		try{
+			//接收参数
+			String sid = request.getParameter("sid");
+			//调用业务层
+			SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+			Site site = siteService.findSiteById(sid);
+			request.setAttribute("site", site);
+			//页面跳转
+			return "/view/editSite.jsp";
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
+	
+	/**
+	 * 更新站点信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public String updateSite(HttpServletRequest request,HttpServletResponse response){
+		try{
+			//接收参数
+			String sid  = request.getParameter("sid");
+			String sname = request.getParameter("sname");
+			String desc = request.getParameter("desc");
+			//封装参数
+			Site site = new Site();
+			site.setSid(sid);
+			site.setSname(sname);
+			site.setDescription(desc);
+			//调用业务层
+			SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+			siteService.updateSite(site);
+			//页面跳转
+			response.sendRedirect(request.getContextPath() + "/SiteServlet?method=findAllSite");
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+		
+		return null;
+	}
+	
+	public String delSite(HttpServletRequest request,HttpServletResponse response){
+		try{
+			//接收参数
+			String sid = request.getParameter("sid");
+			//调用业务层
+			SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+			siteService.delSiteById(sid);
+			//页面跳转
+			response.sendRedirect(request.getContextPath() + "/SiteServlet?method=findAllSite");
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}	
+		return null;		
 	}
 }

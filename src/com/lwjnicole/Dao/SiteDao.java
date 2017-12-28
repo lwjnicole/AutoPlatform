@@ -16,4 +16,10 @@ public interface SiteDao {
 
 	List<Site> findAllSite() throws SQLException;
 
+	Site findSiteById(String sid) throws SQLException;
+
+	void updateSite(Site site) throws SQLException;
+
+	void delSiteById(String sid) throws SQLException;
+
 }

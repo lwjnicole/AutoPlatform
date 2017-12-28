@@ -24,10 +24,39 @@ public class SiteServiceImpl implements SiteService {
 		siteDao.addSite(site);
 	}
 
+	/**
+	 * 查询所有站点
+	 */
 	@Override
 	public List<Site> findAllSite() throws SQLException {
 		SiteDao siteDao = (SiteDao) BeanFactory.getBean("siteDao");
 		return siteDao.findAllSite();
+	}
+
+	/**
+	 * 根据sid查询站点信息
+	 * @throws SQLException 
+	 */
+	@Override
+	public Site findSiteById(String sid) throws SQLException {
+		SiteDao siteDao = (SiteDao) BeanFactory.getBean("siteDao");
+		return siteDao.findSiteById(sid);
+	}
+
+	/**
+	 * 根据sid更新站点信息
+	 * @throws SQLException 
+	 */
+	@Override
+	public void updateSite(Site site) throws SQLException {
+		SiteDao siteDao = (SiteDao) BeanFactory.getBean("siteDao");
+		siteDao.updateSite(site);
+	}
+
+	@Override
+	public void delSiteById(String sid) throws SQLException {
+		SiteDao siteDao = (SiteDao) BeanFactory.getBean("siteDao");
+		siteDao.delSiteById(sid);
 	}
 
 }
