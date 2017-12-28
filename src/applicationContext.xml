@@ -2,9 +2,10 @@
 <beans>
 	<bean id="userDao" class="com.lwjnicole.Dao.impl.UserDaoImpl"/>
 	<bean id="siteDao" class="com.lwjnicole.Dao.impl.SiteDaoImpl"/>
+	<bean id="apiDao" class="com.lwjnicole.Dao.impl.ApiDaoImpl"/>
 
 	
 	<bean id="userService" class="com.lwjnicole.service.impl.UserServiceImpl"/>
 	<bean id="siteService" class="com.lwjnicole.service.impl.SiteServiceImpl"/>
-	
+	<bean id="apiService" class="com.lwjnicole.service.impl.ApiServiceImpl"/>
 </beans>
