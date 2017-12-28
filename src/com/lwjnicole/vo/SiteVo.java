@@ -6,6 +6,7 @@ package com.lwjnicole.vo;
  */
 public class SiteVo {
 	private Integer id;
+	private String sid;
 	private String sname;
 	private String description;
 	private String create_time;
@@ -14,6 +15,12 @@ public class SiteVo {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 	public String getSname() {
 		return sname;
@@ -33,17 +40,19 @@ public class SiteVo {
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
 	}
-	@Override
-	public String toString() {
-		return "SiteVo [id=" + id + ", sname=" + sname + ", description=" + description + ", create_time=" + create_time
-				+ "]";
-	}
-	public SiteVo(Integer id, String sname, String description, String create_time) {
+	
+	public SiteVo(Integer id, String sid, String sname, String description, String create_time) {
 		super();
 		this.id = id;
+		this.sid = sid;
 		this.sname = sname;
 		this.description = description;
 		this.create_time = create_time;
+	}
+	@Override
+	public String toString() {
+		return "SiteVo [id=" + id + ", sid=" + sid + ", sname=" + sname + ", description=" + description
+				+ ", create_time=" + create_time + "]";
 	}
 	public SiteVo() {
 		super();
