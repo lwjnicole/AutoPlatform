@@ -8,6 +8,14 @@ public class AutoUtils {
 	 * @return
 	 */
 	public static String getSiteId(){
-		return new SimpleDateFormat("yyyyMMddHHmmssSSS").format(System.currentTimeMillis());
+		return "S" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(System.currentTimeMillis());
+	}
+	
+	/**
+	 * 生成接口ID
+	 * @return
+	 */
+	public static String getApiId(){
+		return "A" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(System.currentTimeMillis());
 	}
 }

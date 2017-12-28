@@ -45,7 +45,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li >
-							<a href="${pageContext.request.contextPath}/view/apiList.jsp">接口列表</a>
+							<a href="${pageContext.request.contextPath}/ApiServlet?method=findAllApi">接口列表</a>
 						</li>
 					</ul>
 				</li>

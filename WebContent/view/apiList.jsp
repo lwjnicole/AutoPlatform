@@ -32,21 +32,6 @@
 
 		<!-- BEGIN PAGE -->
 		<div class="page-content">
-
-			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-
-	<!-- 		<div id="portlet-config" class="modal hide">
-				<div class="modal-header">
-					<button data-dismiss="modal" class="close" type="button"></button>
-					<h3>portlet Settings</h3>
-				</div>
-				<div class="modal-body">
-					<p>Here will be a configuration form</p>
-				</div>
-			</div> -->
-
-			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-
 			<!-- BEGIN PAGE CONTAINER-->        
 			<div class="container-fluid">
 				<!-- BEGIN PAGE HEADER-->
@@ -96,7 +81,8 @@
 											<label><input type="checkbox" checked data-column="3">接口名称</label>
 											<label><input type="checkbox" checked data-column="4">URL</label>
 											<label><input type="checkbox" checked data-column="5">请求方法</label>
-											<label><input type="checkbox" checked data-column="6">操作</label>
+											<label><input type="checkbox" checked data-column="6">创建时间</label>
+											<label><input type="checkbox" checked data-column="7">操作</label>
 										
 										</div>
 									</div>
@@ -105,7 +91,7 @@
 							<div class="portlet-body">
 								<div class="clearfix">
 									<div class="btn-group">
-										<a id="sample_editable_1_new" class="btn green" role="button" href="${pageContext.request.contextPath}/view/addApi.jsp">
+										<a id="sample_editable_1_new" class="btn green" role="button" href="${pageContext.request.contextPath}/ApiServlet?method=addApiUI">
 										新增&nbsp;&nbsp;<i class="icon-plus"></i>
 										</a>
 									</div>
@@ -123,22 +109,25 @@
 											<th class="hidden-480">接口名称</th>
 											<th class="hidden-480">URL</th>
 											<th class="hidden-480">请求方法</th>
+											<th class="hidden-480">创建时间</th>
 											<th class="hidden-480">操作</th>
 										</tr>
 									</thead>
 
 									<tbody>
+									<c:forEach var="a" items="${apiListVo}" varStatus="Status">
 										<tr>
-											<td>1</td>
-											<td>www.baidu.com</td>
-											<td>aaa</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">/login</td>
-											<td class="hidden-480">POSt</td>
+											<td>${Status.count}</td>
+											<td>${a.sid}</td>
+											<td>${a.business }</td>
+											<td class="hidden-480">${a.aname }</td>
+											<td class="hidden-480">${a.aurl }</td>
+											<td class="hidden-480">${a.method }</td>
+											<td class="hidden-480">${a.create_time }</td>
 											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editApi.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
 										</tr>
-
-										<tr >
+									</c:forEach>
+									<!-- 	<tr >
 											<td>2</td>
 											<td>S60</td>
 											<td>aaa</td>
@@ -215,7 +204,7 @@
 											<td class="hidden-480">8.5</td>
 											<td class="hidden-480">C/A<sup>1</sup></td>
 											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>									
+										</tr>									 -->
 									</tbody>
 								</table>
 							</div>

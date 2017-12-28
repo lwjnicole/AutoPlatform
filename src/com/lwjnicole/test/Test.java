@@ -1,6 +1,7 @@
 package com.lwjnicole.test;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -25,22 +26,8 @@ import com.lwjnicole.utils.JDBCUtils;
 public class Test {
 	
 	public static void main(String[] args) {
-	//	Site site = new Site();
-		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
-	//	String sql = "select * from site order by create_time desc";
-		String sql = "select * from site order by create_time desc limit 1";
-		try {
-	//		List<Site> list = qr.query(sql, new BeanListHandler<Site>(Site.class));
-		Site site = qr.query(sql, new BeanHandler<Site>(Site.class));
-		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(site.getCreate_time()));
-		System.out.println(site.toString());
-			/*for (Site site2 : list) {
-				System.out.println(site2.toString());
-			}*/
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException();
-		}
+	
+		System.out.println(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(System.currentTimeMillis()));
 		
 	}
 }
