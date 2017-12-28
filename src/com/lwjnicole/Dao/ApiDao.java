@@ -12,8 +12,12 @@ import com.lwjnicole.domain.Api;
  */
 public interface ApiDao {
 
-	List<Api> findAllApi() throws SQLException;
 
 	void addApi(Api api) throws SQLException;
+
+	List<Api> findAllApi() throws SQLException;
+
+	Api findApiByAid(String aid) throws SQLException;
+
 
 }

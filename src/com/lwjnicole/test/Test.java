@@ -1,5 +1,6 @@
 package com.lwjnicole.test;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +9,10 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
+import com.lwjnicole.domain.Api;
 import com.lwjnicole.domain.Site;
 import com.lwjnicole.utils.JDBCUtils;
+import com.lwjnicole.vo.ApiVo;
 
 /**
  *
@@ -27,7 +30,17 @@ public class Test {
 	
 	public static void main(String[] args) {
 	
-		System.out.println(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(System.currentTimeMillis()));
+		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select * from api order by create_time desc";
+		try {
+			List<ApiVo> apiListVo = qr.query(sql, new BeanListHandler<ApiVo>(ApiVo.class));
+			for (ApiVo apiVo : apiListVo) {
+				System.out.println(apiVo.toString());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
 		
 	}
 }

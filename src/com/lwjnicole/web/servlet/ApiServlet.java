@@ -35,13 +35,12 @@ public class ApiServlet extends BaseServlet {
 			List<Api> apiList = apiService.findAllApi();
 			List<ApiVo> apiListVo = new ArrayList<ApiVo>();
 			for (Api api : apiList) {
-				ApiVo apiVo = new ApiVo();
+				ApiVo apiVo = new ApiVo();				
 				apiVo.setAid(api.getAid());
 				apiVo.setAname(api.getAname());
 				apiVo.setAurl(api.getAurl());
 				apiVo.setBusiness(api.getBusiness());
 				apiVo.setMethod(api.getMethod());
-				apiVo.setSid(api.getSid());
 				apiVo.setCreate_time(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(api.getCreate_time()));
 				apiListVo.add(apiVo);
 			}
@@ -75,6 +74,12 @@ public class ApiServlet extends BaseServlet {
 		}		
 	}
 	
+	/**
+	 * 新增接口的执行功能
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String addApi(HttpServletRequest request, HttpServletResponse response){
 		try{
 			//接收参数
@@ -91,7 +96,9 @@ public class ApiServlet extends BaseServlet {
 			api.setMethod(amethod);
 			api.setAid(AutoUtils.getApiId());
 			api.setCreate_time(new Date());
-			api.setSid(sid);
+			SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+			Site site = siteService.findSiteById(sid);
+			api.setSite(site);
 			//调用业务层
 			ApiService apiService = (ApiService) BeanFactory.getBean("apiService");
 			apiService.addApi(api);
@@ -102,5 +109,23 @@ public class ApiServlet extends BaseServlet {
 			throw new RuntimeException();
 		}
 		return null;
+	}
+	
+	public String editApiUI(HttpServletRequest request, HttpServletResponse response){
+		try{
+			//接收参数
+			String aid = request.getParameter("aid");
+			//调用业务层
+			ApiService apiService = (ApiService) BeanFactory.getBean("apiService");
+			Api api = apiService.findApiByAid(aid);
+			/*SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+			Site site = siteService.findSiteById(sid);*/
+			request.setAttribute("api", api);
+			//页面跳转
+			return "/view/editApi.jsp";
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}	
 	}
 }

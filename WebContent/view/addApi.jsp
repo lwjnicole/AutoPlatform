@@ -217,8 +217,7 @@
 	</script>
 		<script>
 		function cancel(){
-			window.location.href="${pageContext.request.contextPath}/view/apiList.jsp";                      
-			
+			window.location.href="${pageContext.request.contextPath}/ApiServlet?method=findAllApi";                      			
 		}
 
 	</script>

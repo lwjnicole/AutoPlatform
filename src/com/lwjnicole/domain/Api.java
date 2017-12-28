@@ -15,7 +15,7 @@ public class Api {
 	private String aurl;	//接口请求地址
 	private String method;	//请求方式
 	private Date create_time;	//创建时间
-	private String sid;	//所属站点ID
+	private Site site;	//所属站点ID
 	public Integer getId() {
 		return id;
 	}
@@ -58,19 +58,16 @@ public class Api {
 	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;
 	}
-	public String getSid() {
-		return sid;
+	
+	public Site getSite() {
+		return site;
 	}
-	public void setSid(String sid) {
-		this.sid = sid;
+	public void setSite(Site site) {
+		this.site = site;
 	}
-	@Override
-	public String toString() {
-		return "Api [id=" + id + ", aid=" + aid + ", business=" + business + ", aname=" + aname + ", aurl=" + aurl
-				+ ", method=" + method + ", create_time=" + create_time + ", sid=" + sid + "]";
-	}
+	
 	public Api(Integer id, String aid, String business, String aname, String aurl, String method, Date create_time,
-			String sid) {
+			Site site) {
 		super();
 		this.id = id;
 		this.aid = aid;
@@ -79,7 +76,12 @@ public class Api {
 		this.aurl = aurl;
 		this.method = method;
 		this.create_time = create_time;
-		this.sid = sid;
+		this.site = site;
+	}
+	@Override
+	public String toString() {
+		return "Api [id=" + id + ", aid=" + aid + ", business=" + business + ", aname=" + aname + ", aurl=" + aurl
+				+ ", method=" + method + ", create_time=" + create_time + ", site=" + site + "]";
 	}
 	public Api() {
 		super();

@@ -109,14 +109,14 @@
 									<div class="control-group">
 										<label class="control-label">业务模块</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" />
+											<input type="text" class="span6 m-wrap" value="${api.business }" />
 											<span class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">接口名称</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" />
+											<input type="text" class="span6 m-wrap" value="${api.aname }"/>
 											<span class="help-inline"></span>
 										</div>
 									</div>
@@ -124,7 +124,7 @@
 									<div class="control-group">
 										<label class="control-label">URL</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" />
+											<input type="text" class="span6 m-wrap" value="${api.aurl }"/>
 											<span class="help-inline"></span>
 										</div>
 									</div>
@@ -133,9 +133,9 @@
 										<label class="control-label">请求方法</label>
 										<div class="controls">
 											<select class="large m-wrap" tabindex="1">
-												  <option value ="请选择">请选择</option>
-												  <option value ="POST">POST</option>
-												  <option value="GET">GET</option>
+												<!--   <option value ="请选择">请选择</option>
+												  <option value ="POST">POST</option> -->
+												  <option value="GET">${api.method }</option>
 											</select>
 										</div>
 									</div>

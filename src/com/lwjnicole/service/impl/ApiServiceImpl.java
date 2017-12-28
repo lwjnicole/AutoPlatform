@@ -15,6 +15,14 @@ import com.lwjnicole.utils.BeanFactory;
  */
 public class ApiServiceImpl implements ApiService {
 
+	
+
+	@Override
+	public void addApi(Api api) throws SQLException {
+		ApiDao apiDao = (ApiDao) BeanFactory.getBean("apiDao");	
+		apiDao.addApi(api);
+	}
+
 	@Override
 	public List<Api> findAllApi() throws SQLException {
 		ApiDao apiDao = (ApiDao) BeanFactory.getBean("apiDao");	
@@ -22,9 +30,11 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public void addApi(Api api) throws SQLException {
+	public Api findApiByAid(String aid) throws SQLException {
 		ApiDao apiDao = (ApiDao) BeanFactory.getBean("apiDao");	
-		apiDao.addApi(api);
+		return apiDao.findApiByAid(aid);
 	}
+
+	
 
 }

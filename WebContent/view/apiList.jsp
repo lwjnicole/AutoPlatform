@@ -76,7 +76,7 @@
 										<div id="sample_2_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
 											<!-- <label><input type="checkbox" checked data-column="-1">全选</label> -->
 											<label><input type="checkbox" checked data-column="0">序号</label>
-											<label><input type="checkbox" checked data-column="1">所属站点</label>
+										<!-- 	<label><input type="checkbox" checked data-column="1">所属站点</label> -->
 											<label><input type="checkbox" checked data-column="2">业务模块</label>
 											<label><input type="checkbox" checked data-column="3">接口名称</label>
 											<label><input type="checkbox" checked data-column="4">URL</label>
@@ -104,7 +104,7 @@
 									<thead>
 										<tr>
 											<th>序号</th>
-											<th>所属站点</th>
+											<!-- <th>所属站点</th> -->
 											<th>业务模块</th>
 											<th class="hidden-480">接口名称</th>
 											<th class="hidden-480">URL</th>
@@ -118,13 +118,13 @@
 									<c:forEach var="a" items="${apiListVo}" varStatus="Status">
 										<tr>
 											<td>${Status.count}</td>
-											<td>${a.sid}</td>
+											<!-- <td>所属站点</td>	 -->
 											<td>${a.business }</td>
 											<td class="hidden-480">${a.aname }</td>
 											<td class="hidden-480">${a.aurl }</td>
 											<td class="hidden-480">${a.method }</td>
 											<td class="hidden-480">${a.create_time }</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editApi.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
+											<td class="hidden-480"><a href="${pageContext.request.contextPath}/ApiServlet?method=editApiUI&aid=${a.aid}">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
 										</tr>
 									</c:forEach>
 									<!-- 	<tr >
