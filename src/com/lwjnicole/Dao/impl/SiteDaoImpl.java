@@ -24,12 +24,15 @@ public class SiteDaoImpl implements SiteDao {
 	@Override
 	public void addSite(Site site) throws SQLException {
 		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
-		String sql = "insert into site (sname,description,create_time) values (?,?,?)";
-		Object[] params = {site.getSname(),site.getDescription(),site.getCreate_time()};
+		String sql = "insert into site (sid,sname,description,create_time) values (?,?,?,?)";
+		Object[] params = {site.getSid(),site.getSname(),site.getDescription(),site.getCreate_time()};
 		qr.update(sql, params);
 		
 	}
 
+	/**
+	 * 查询所有站点
+	 */
 	@Override
 	public List<Site> findAllSite() throws SQLException {
 		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());

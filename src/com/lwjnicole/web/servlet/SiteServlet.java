@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.lwjnicole.domain.Site;
 import com.lwjnicole.service.SiteService;
+import com.lwjnicole.utils.AutoUtils;
 import com.lwjnicole.utils.BeanFactory;
 import com.lwjnicole.vo.SiteVo;
 
@@ -46,6 +47,7 @@ public class SiteServlet extends BaseServlet {
 				return "/view/addSite.jsp";
 			}
 			Site site = new Site();
+			site.setSid(AutoUtils.getSiteId());
 			site.setSname(sname);
 			site.setDescription(desc);		
 			site.setCreate_time(new Date());
@@ -72,6 +74,7 @@ public class SiteServlet extends BaseServlet {
 			for (Site site : siteList) {
 				SiteVo siteVo = new SiteVo();
 				siteVo.setId(site.getId());
+				siteVo.setSid(site.getSid());
 				siteVo.setSname(site.getSname());
 				siteVo.setDescription(site.getDescription());
 				siteVo.setCreate_time(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(site.getCreate_time()));
