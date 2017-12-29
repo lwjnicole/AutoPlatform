@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.lwjnicole.domain.Api;
+import com.lwjnicole.vo.ApiVo;
 
 /**
  * 接口模块的service
@@ -15,9 +16,13 @@ public interface ApiService {
 
 	void addApi(Api api) throws SQLException;
 
-	List<Api> findAllApi() throws SQLException;
+	List<ApiVo> findAllApi() throws SQLException;
 
-	Api findApiByAid(String aid) throws SQLException;
+	ApiVo findApiByAid(String aid) throws SQLException;
+
+	void updateApiByAid(Api api) throws SQLException;
+
+	void deleteApiByAid(String aid) throws SQLException;
 
 
 }

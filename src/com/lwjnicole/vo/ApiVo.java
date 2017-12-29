@@ -1,6 +1,6 @@
 package com.lwjnicole.vo;
 
-import com.lwjnicole.domain.Site;
+import java.util.Date;
 
 /**
  * 接口管理Vo,用于展示数据
@@ -14,8 +14,17 @@ public class ApiVo {
 	private String aname;	//接口名称
 	private String aurl;	//接口请求地址
 	private String method;	//请求方式
-	private String create_time;	//创建时间
+	private Date create_time;	//创建时间
+	private String createTime;
 	private String sid;	//所属站点ID
+	private String sname;//所属站点名称
+	
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}	
 	public Integer getId() {
 		return id;
 	}
@@ -52,37 +61,29 @@ public class ApiVo {
 	public void setMethod(String method) {
 		this.method = method;
 	}
-	public String getCreate_time() {
+	public Date getCreate_time() {
 		return create_time;
 	}
-	public void setCreate_time(String create_time) {
+	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;
+	}
+	public String getSname() {
+		return sname;
+	}
+	public void setSname(String sname) {
+		this.sname = sname;
 	}	
-	
-	public ApiVo(Integer id, String aid, String business, String aname, String aurl, String method, String create_time,
-			String sid) {
-		super();
-		this.id = id;
-		this.aid = aid;
-		this.business = business;
-		this.aname = aname;
-		this.aurl = aurl;
-		this.method = method;
-		this.create_time = create_time;
-		this.sid = sid;
-	}
-	@Override
-	public String toString() {
-		return "ApiVo [id=" + id + ", aid=" + aid + ", business=" + business + ", aname=" + aname + ", aurl=" + aurl
-				+ ", method=" + method + ", create_time=" + create_time + ", sid=" + sid + "]";
-	}
 	public String getSid() {
 		return sid;
 	}
 	public void setSid(String sid) {
 		this.sid = sid;
 	}
-	public ApiVo() {
-		super();
+	@Override
+	public String toString() {
+		return "ApiVo [id=" + id + ", aid=" + aid + ", business=" + business + ", aname=" + aname + ", aurl=" + aurl
+				+ ", method=" + method + ", create_time=" + create_time + ", createtime=" + createTime + ", sid=" + sid
+				+ ", sname=" + sname + "]";
 	}
+	
 }

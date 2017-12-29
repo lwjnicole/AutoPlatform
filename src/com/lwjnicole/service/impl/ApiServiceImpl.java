@@ -7,6 +7,7 @@ import com.lwjnicole.Dao.ApiDao;
 import com.lwjnicole.domain.Api;
 import com.lwjnicole.service.ApiService;
 import com.lwjnicole.utils.BeanFactory;
+import com.lwjnicole.vo.ApiVo;
 
 /**
  * 接口模块的service实现类
@@ -24,15 +25,27 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public List<Api> findAllApi() throws SQLException {
+	public List<ApiVo> findAllApi() throws SQLException {
 		ApiDao apiDao = (ApiDao) BeanFactory.getBean("apiDao");	
 		return apiDao.findAllApi();
 	}
 
 	@Override
-	public Api findApiByAid(String aid) throws SQLException {
+	public ApiVo findApiByAid(String aid) throws SQLException {
 		ApiDao apiDao = (ApiDao) BeanFactory.getBean("apiDao");	
 		return apiDao.findApiByAid(aid);
+	}
+
+	@Override
+	public void updateApiByAid(Api api) throws SQLException {
+		ApiDao apiDao = (ApiDao) BeanFactory.getBean("apiDao");	
+		apiDao.updateApiByAid(api);
+	}
+
+	@Override
+	public void deleteApiByAid(String aid) throws SQLException {
+		ApiDao apiDao = (ApiDao) BeanFactory.getBean("apiDao");	
+		apiDao.deleteApiByAid(aid);	
 	}
 
 	

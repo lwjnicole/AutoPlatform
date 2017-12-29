@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import com.lwjnicole.Dao.ApiDao;
 import com.lwjnicole.domain.Api;
 import com.lwjnicole.utils.JDBCUtils;
+import com.lwjnicole.vo.ApiVo;
 
 /**
  * 接口模块Dao的实现类
@@ -22,11 +23,11 @@ public class ApiDaoImpl implements ApiDao {
 	 * 查询所有接口信息
 	 */
 	@Override
-	public List<Api> findAllApi() throws SQLException {
+	public List<ApiVo> findAllApi() throws SQLException {
 		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
-		String sql = "select * from api order by create_time desc";
-		List<Api> apiList = qr.query(sql, new BeanListHandler<Api>(Api.class));
-		return apiList;
+		String sql = "select s.sname,a.aurl,a.business,a.aname,a.method,a.create_time,a.aid from api a left join site s on a.sid=s.sid order by a.create_time desc";
+		List<ApiVo> apiListVo = qr.query(sql, new BeanListHandler<ApiVo>(ApiVo.class));
+		return apiListVo;
 	}
 
 	/**
@@ -45,11 +46,32 @@ public class ApiDaoImpl implements ApiDao {
 	 * @throws SQLException 
 	 */
 	@Override
-	public Api findApiByAid(String aid) throws SQLException {
+	public ApiVo findApiByAid(String aid) throws SQLException {
 		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
-		String sql = "select * from api where aid = ?";
-		Api api = qr.query(sql, new BeanHandler<Api>(Api.class), aid);
-		return api;
+		String sql = "select s.sname,a.aurl,a.business,a.aname,a.method,a.aid,a.sid from api a left join site s on a.sid=s.sid where a.aid = ?";
+		ApiVo apiVo = qr.query(sql, new BeanHandler<ApiVo>(ApiVo.class), aid);
+		return apiVo;
+	}
+
+	/**
+	 * 根据aid更新接口数据
+	 */
+	@Override
+	public void updateApiByAid(Api api) throws SQLException {
+		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "update api set business=?,aname=?,aurl=?,method=?,sid=? where aid=?";
+		qr.update(sql, api.getBusiness(),api.getAname(),api.getAurl(),api.getMethod(),api.getSite().getSid(),api.getAid());
+	}
+
+	/**
+	 * 根据aid删除接口数据
+	 * @throws SQLException 
+	 */
+	@Override
+	public void deleteApiByAid(String aid) throws SQLException {
+		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "delete from api where aid = ?";
+		qr.update(sql, aid);
 	}
 
 	

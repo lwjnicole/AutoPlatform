@@ -1,7 +1,6 @@
 package com.lwjnicole.web.servlet;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,17 +31,11 @@ public class ApiServlet extends BaseServlet {
 		try{
 			//调用业务层
 			ApiService apiService = (ApiService) BeanFactory.getBean("apiService");
-			List<Api> apiList = apiService.findAllApi();
-			List<ApiVo> apiListVo = new ArrayList<ApiVo>();
-			for (Api api : apiList) {
-				ApiVo apiVo = new ApiVo();				
-				apiVo.setAid(api.getAid());
-				apiVo.setAname(api.getAname());
-				apiVo.setAurl(api.getAurl());
-				apiVo.setBusiness(api.getBusiness());
-				apiVo.setMethod(api.getMethod());
-				apiVo.setCreate_time(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(api.getCreate_time()));
-				apiListVo.add(apiVo);
+			List<ApiVo> apiListVo = apiService.findAllApi();
+			for (int i=0;i<apiListVo.size();i++) {
+				ApiVo apiVo = apiListVo.get(i);
+				apiVo.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(apiVo.getCreate_time()));
+				apiListVo.set(i,apiVo);
 			}
 			request.setAttribute("apiListVo", apiListVo);
 			//页面跳转
@@ -50,9 +43,7 @@ public class ApiServlet extends BaseServlet {
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new RuntimeException();
-		}
-		
-		
+		}		
 	}
 	
 	/**
@@ -88,6 +79,26 @@ public class ApiServlet extends BaseServlet {
 			String aname = request.getParameter("aname");
 			String aurl = request.getParameter("aurl");
 			String amethod = request.getParameter("amethod");
+			if(sid.equals("0")){
+				request.setAttribute("snamemsg", "请选择所属站点");
+				return "/ApiServlet?method=addApiUI";
+			}
+			if(business.equals("")){
+				request.setAttribute("businessmsg", "业务模块不能为空");
+				return "/ApiServlet?method=addApiUI";
+			}
+			if(aname.equals("")){
+				request.setAttribute("anamemsg", "接口名称不能为空");
+				return "/ApiServlet?method=addApiUI";
+			}
+			if(aurl.equals("")){
+				request.setAttribute("aurlmsg", "URL不能为空");
+				return "/ApiServlet?method=addApiUI";
+			}
+			if(amethod.equals("0")){
+				request.setAttribute("amethodmsg", "请求方法不能为空");
+				return "/ApiServlet?method=addApiUI";
+			}
 			//封装参数
 			Api api = new Api();
 			api.setAname(aname);
@@ -111,21 +122,85 @@ public class ApiServlet extends BaseServlet {
 		return null;
 	}
 	
+	/**
+	 * 跳转到编辑页面
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String editApiUI(HttpServletRequest request, HttpServletResponse response){
 		try{
 			//接收参数
 			String aid = request.getParameter("aid");
 			//调用业务层
 			ApiService apiService = (ApiService) BeanFactory.getBean("apiService");
-			Api api = apiService.findApiByAid(aid);
-			/*SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
-			Site site = siteService.findSiteById(sid);*/
-			request.setAttribute("api", api);
+			ApiVo apiVo = apiService.findApiByAid(aid);			
+			request.setAttribute("apiVo", apiVo);
+			
+			//查所有站点
+			SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+			List<Site> siteList = siteService.findAllSite();
+			request.setAttribute("siteList", siteList);
+			
 			//页面跳转
 			return "/view/editApi.jsp";
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new RuntimeException();
 		}	
+	}
+	
+	/**
+	 * 更新接口数据
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public String updateApi(HttpServletRequest request, HttpServletResponse response){
+		try{
+			//接收参数
+			String aid = request.getParameter("aid");
+			String sid = request.getParameter("sname");
+			String business = request.getParameter("business");
+			String aname = request.getParameter("aname");
+			String aurl = request.getParameter("aurl");
+			String amethod = request.getParameter("amethod");
+			//封装参数
+			Api api = new Api();
+			api.setAid(aid);
+			api.setAname(aname);
+			api.setAurl(aurl);
+			api.setBusiness(business);
+			api.setMethod(amethod);
+			SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+			Site site = siteService.findSiteById(sid);
+			api.setSite(site);
+			//调用业务层
+			ApiService apiService = (ApiService) BeanFactory.getBean("apiService");
+			apiService.updateApiByAid(api);
+			//页面跳转
+			response.sendRedirect(request.getContextPath() + "/ApiServlet?method=findAllApi");
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}		
+		return null;
+	}
+	
+	public String deleteApiByAid(HttpServletRequest request, HttpServletResponse response){
+		try{
+			//接收参数
+			String aid = request.getParameter("aid");
+			//调用业务层
+			ApiService apiService = (ApiService) BeanFactory.getBean("apiService");
+			apiService.deleteApiByAid(aid);
+			//页面跳转
+			response.sendRedirect(request.getContextPath() + "/ApiServlet?method=findAllApi");
+			return null;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+				
 	}
 }
