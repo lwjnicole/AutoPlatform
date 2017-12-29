@@ -1,4 +1,11 @@
 package com.lwjnicole.service;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.lwjnicole.domain.Cases;
+import com.lwjnicole.vo.CaseVo;
+
 /**
  *
  * <b>类名：</b>CaseService.java<br>
@@ -12,5 +19,9 @@ package com.lwjnicole.service;
  * @Description 接口用例service
  */
 public interface CaseService {
+
+	void addCase(Cases cases) throws SQLException;
+
+	List<CaseVo> findAllCase() throws SQLException;
 
 }

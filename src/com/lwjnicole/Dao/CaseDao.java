@@ -1,4 +1,11 @@
 package com.lwjnicole.Dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.lwjnicole.domain.Cases;
+import com.lwjnicole.vo.CaseVo;
+
 /**
  *
  * <b>类名：</b>CaseDao.java<br>
@@ -12,5 +19,9 @@ package com.lwjnicole.Dao;
  * @Description 接口用例的Dao类
  */
 public interface CaseDao {
+
+	void addCase(Cases cases) throws SQLException;
+
+	List<CaseVo> findAllCase() throws SQLException;
 
 }

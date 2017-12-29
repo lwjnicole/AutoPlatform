@@ -1,6 +1,13 @@
 package com.lwjnicole.service.impl;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import com.lwjnicole.Dao.CaseDao;
+import com.lwjnicole.domain.Cases;
 import com.lwjnicole.service.CaseService;
+import com.lwjnicole.utils.BeanFactory;
+import com.lwjnicole.vo.CaseVo;
 
 /**
  *
@@ -15,5 +22,25 @@ import com.lwjnicole.service.CaseService;
  * @Description 接口用例service的实现类
  */
 public class CaseServiceImpl implements CaseService {
+
+	/**
+	 * 新增接口用例
+	 * @throws SQLException 
+	 */
+	@Override
+	public void addCase(Cases cases) throws SQLException {
+		CaseDao caseDao = (CaseDao) BeanFactory.getBean("caseDao");
+		caseDao.addCase(cases);
+	}
+
+	/**
+	 * 查询所有用例数据
+	 * @throws SQLException 
+	 */
+	@Override
+	public List<CaseVo> findAllCase() throws SQLException {
+		CaseDao caseDao = (CaseDao) BeanFactory.getBean("caseDao");
+		return caseDao.findAllCase();
+	}
 
 }

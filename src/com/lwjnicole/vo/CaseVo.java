@@ -1,20 +1,22 @@
-package com.lwjnicole.domain;
+package com.lwjnicole.vo;
 
 import java.util.Date;
 
+import com.lwjnicole.domain.Site;
+
 /**
  *
- * <b>类名：</b>Case.java<br>
+ * <b>类名：</b>CaseVo.java<br>
  * <p><b>标题：</b>意真金融接口自动化测试</p>
  * <p><b>描述：</b>意真金融将接口自动化测试</p>
  * <p><b>版权声明：</b>Copyright (c) 2017</p>
  * <p><b>公司：</b>意真金融信息服务有限公司 </p>
  * @author <font color='blue'>李文吉</font>
  * @version 1.0.1
- * @date  2017年12月29日 下午11:08:07
- * @Description 接口用例实体类
+ * @date  2017年12月30日 上午12:37:04
+ * @Description caseVo用于展示用例数据
  */
-public class Case {
+public class CaseVo {
 	private Integer id;
 	private String cid;
 	private String cname;
@@ -24,7 +26,10 @@ public class Case {
 	private String cparam;
 	private String cresult;
 	private Date create_time;
+	private String createTime;
 	private Site site;
+	private String sid;
+	private String sname;
 	public Integer getId() {
 		return id;
 	}
@@ -79,16 +84,38 @@ public class Case {
 	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;
 	}
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 	public Site getSite() {
 		return site;
 	}
 	public void setSite(Site site) {
 		this.site = site;
 	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+	public String getSname() {
+		return sname;
+	}
+	public void setSname(String sname) {
+		this.sname = sname;
+	}
 	@Override
 	public String toString() {
-		return "Case [id=" + id + ", cid=" + cid + ", cname=" + cname + ", cbusiness=" + cbusiness + ", curl=" + curl
+		return "CaseVo [id=" + id + ", cid=" + cid + ", cname=" + cname + ", cbusiness=" + cbusiness + ", curl=" + curl
 				+ ", cmethod=" + cmethod + ", cparam=" + cparam + ", cresult=" + cresult + ", create_time="
-				+ create_time + ", site=" + site + "]";
+				+ create_time + ", createTime=" + createTime + ", site=" + site + ", sid=" + sid + ", sname=" + sname
+				+ "]";
+	}
+	public CaseVo() {
+		super();
 	}
 }
