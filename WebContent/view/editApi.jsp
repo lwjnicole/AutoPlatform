@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -95,28 +95,30 @@
 
 							<div class="portlet-body form">
 								<!-- BEGIN FORM-->
-								<form action="#" class="form-horizontal">
+								<form action="${pageContext.request.contextPath}/ApiServlet" class="form-horizontal" method="post">
+								<input type="hidden" name="method" value="updateApi"/>
+								<input type="hidden" name="aid" value="${apiVo.aid}"/>
 									<div class="control-group">
 										<label class="control-label">所属站点</label>
 										<div class="controls">
-											<select class="large m-wrap" tabindex="1">
-												  <option value ="请选择">请选择</option>
-												  <option value ="POST">www.baidu.com</option>
-												  <option value="GET">www.lwjnicole.com</option>
+											<select class="large m-wrap" tabindex="1" name="sname">												 
+												  <c:forEach var="s" items="${siteList}" varStatus="Status">
+												  	<option value="${s.sid }" <c:if test="${s.sid == apiVo.sid}">selected="selected"</c:if>>${s.sname }</option>
+												  </c:forEach>		  
 											</select>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">业务模块</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" value="${api.business }" />
+											<input type="text" class="span6 m-wrap" value="${apiVo.business }" name="business"/>
 											<span class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">接口名称</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" value="${api.aname }"/>
+											<input type="text" class="span6 m-wrap" value="${apiVo.aname }" name="aname"/>
 											<span class="help-inline"></span>
 										</div>
 									</div>
@@ -124,7 +126,7 @@
 									<div class="control-group">
 										<label class="control-label">URL</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" value="${api.aurl }"/>
+											<input type="text" class="span6 m-wrap" value="${apiVo.aurl }" name="aurl"/>
 											<span class="help-inline"></span>
 										</div>
 									</div>
@@ -132,10 +134,9 @@
 									<div class="control-group">
 										<label class="control-label">请求方法</label>
 										<div class="controls">
-											<select class="large m-wrap" tabindex="1">
-												<!--   <option value ="请选择">请选择</option>
-												  <option value ="POST">POST</option> -->
-												  <option value="GET">${api.method }</option>
+											<select class="large m-wrap" tabindex="1" name="amethod">												
+												  <option value="POST" <c:if test="${apiVo.method eq 'POST'}">selected="selected"</c:if>>POST</option>
+												  <option value="GET" <c:if test="${apiVo.method eq 'GET'}">selected="selected"</c:if>>GET</option>
 											</select>
 										</div>
 									</div>
@@ -213,8 +214,7 @@
 	</script>
 	<script>
 		function cancel(){
-			window.location.href="${pageContext.request.contextPath}/view/apiList.jsp";                      
-			
+			window.location.href= "${pageContext.request.contextPath}/ApiServlet?method=findAllApi";                      		
 		}
 
 	</script>

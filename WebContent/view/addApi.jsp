@@ -100,52 +100,54 @@
 									<div class="control-group">
 										<label class="control-label">所属站点</label>
 										<div class="controls">
-											<select class="large m-wrap" tabindex="1" name="sname">
-												  <option value ="请选择">请选择</option>
+											<select class="large m-wrap" tabindex="1" name="sname" id="snameid">
+												  <option value ="0">请选择</option>
 												 <c:forEach var="s" items="${site}">
 												  	<option value ="${s.sid}">${s.sname}</option>
 												 </c:forEach> 
 											</select>
+											<span class="help-inline" id="snameSpan"><font style='color: red;'>${snamemsg}</font></span>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">业务模块</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" name="business"/>
-											<span class="help-inline"></span>
+											<input type="text" class="span6 m-wrap" name="business" id="businessid"/>
+											<span class="help-inline" id="businessSpan"><font style='color: red;'>${businessmsg}</font></span>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">接口名称</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" name="aname"/>
-											<span class="help-inline"></span>
+											<input type="text" class="span6 m-wrap" name="aname" id="anameid"/>
+											<span class="help-inline" id="anameSpan"><font style='color: red;'>${anamemsg}</font></span>
 										</div>
 									</div>
 									
 									<div class="control-group">
 										<label class="control-label">URL</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" name="aurl"/>
-											<span class="help-inline"></span>
+											<input type="text" class="span6 m-wrap" name="aurl" id="urlid"/>
+											<span class="help-inline" id="urlSpan"><font style='color: red;'>${aurlmsg}</font></span>
 										</div>
 									</div>
 									
 									<div class="control-group">
 										<label class="control-label">请求方法</label>
 										<div class="controls">
-											<select class="large m-wrap" tabindex="1" name="amethod">
-												  <option value ="请选择">请选择</option>
+											<select class="large m-wrap" tabindex="1" name="amethod" id="methodid">
+												  <option value ="0">请选择</option>
 												  <option value ="POST">POST</option>
 												  <option value="GET">GET</option>
 											</select>
+											<span class="help-inline" id="methodSpan"><font style='color: red;'>${amethodmsg}</font></span>
 										</div>
 									</div>
 									
 
 								
 									<div class="form-actions">
-										<button type="submit" class="btn blue">保存</button>
+										<button type="submit" class="btn blue" id="submit">保存</button>
 										&nbsp;&nbsp;
 										<button type="button" class="btn" onclick="cancel()">取消</button>                            
 									</div>
@@ -215,11 +217,70 @@
 		   FormComponents.init();
 		});
 	</script>
-		<script>
+	
+	<script>
 		function cancel(){
 			window.location.href="${pageContext.request.contextPath}/ApiServlet?method=findAllApi";                      			
 		}
-
+	</script>
+	
+	<script type="text/javascript">
+		$(function(){
+			$("#snameid").blur(function(){
+				var snameValue = $(this).val();
+				if(snameValue == 0){
+					$("#snameSpan").html("<font style='color: red;'>请选择所属站点</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#snameSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#businessid").blur(function(){
+				var businessValue = $(this).val();
+				if(businessValue == ""){
+					$("#businessSpan").html("<font style='color: red;'>业务模块不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#businessSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#anameid").blur(function(){
+				var anameValue = $(this).val();
+				if(anameValue == ""){
+					$("#anameSpan").html("<font style='color: red;'>接口名称不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#anameSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#urlid").blur(function(){
+				var urlValue = $(this).val();
+				if(urlValue == ""){
+					$("#urlSpan").html("<font style='color: red;'>URL不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#urlSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#methodid").blur(function(){
+				var methodValue = $(this).val();
+				if(methodValue == 0){
+					$("#methodSpan").html("<font style='color: red;'>请求方法不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#methodSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+		})
 	</script>
 	<!-- END JAVASCRIPTS -->   
 

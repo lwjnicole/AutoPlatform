@@ -76,7 +76,7 @@
 										<div id="sample_2_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
 											<!-- <label><input type="checkbox" checked data-column="-1">全选</label> -->
 											<label><input type="checkbox" checked data-column="0">序号</label>
-										<!-- 	<label><input type="checkbox" checked data-column="1">所属站点</label> -->
+											<label><input type="checkbox" checked data-column="1">所属站点</label>
 											<label><input type="checkbox" checked data-column="2">业务模块</label>
 											<label><input type="checkbox" checked data-column="3">接口名称</label>
 											<label><input type="checkbox" checked data-column="4">URL</label>
@@ -104,7 +104,7 @@
 									<thead>
 										<tr>
 											<th>序号</th>
-											<!-- <th>所属站点</th> -->
+											<th>所属站点</th>
 											<th>业务模块</th>
 											<th class="hidden-480">接口名称</th>
 											<th class="hidden-480">URL</th>
@@ -118,93 +118,15 @@
 									<c:forEach var="a" items="${apiListVo}" varStatus="Status">
 										<tr>
 											<td>${Status.count}</td>
-											<!-- <td>所属站点</td>	 -->
+											<td>${a.sname}</td>	
 											<td>${a.business }</td>
 											<td class="hidden-480">${a.aname }</td>
 											<td class="hidden-480">${a.aurl }</td>
 											<td class="hidden-480">${a.method }</td>
-											<td class="hidden-480">${a.create_time }</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/ApiServlet?method=editApiUI&aid=${a.aid}">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
+											<td class="hidden-480">${a.createTime }</td>
+											<td class="hidden-480"><a href="${pageContext.request.contextPath}/ApiServlet?method=editApiUI&aid=${a.aid}">编辑</a>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/ApiServlet?method=deleteApiByAid&aid=${a.aid}" onclick="return del()">删除</a></td>
 										</tr>
-									</c:forEach>
-									<!-- 	<tr >
-											<td>2</td>
-											<td>S60</td>
-											<td>aaa</td>
-											<td class="hidden-480">S60</td>
-											<td class="hidden-480">413</td>
-											<td class="hidden-480">A</td>
-											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-										<tr >
-											<td>3</td>
-											<td>aaa</td>
-											<td>Opera 7.0</td>
-											<td class="hidden-480">Win 95+ / OSX.1+</td>
-											<td class="hidden-480">-</td>
-											<td class="hidden-480">A</td>
-											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-										<tr >
-											<td>4</td>
-											<td>aaa</td>
-											<td>Opera 7.5</td>
-											<td class="hidden-480">Win 95+ / OSX.2+</td>
-											<td class="hidden-480">-</td>
-											<td class="hidden-480">A</td>
-											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-										<tr >
-											<td>5</td>
-											<td>aaa</td>
-											<td>Opera 8.0</td>
-											<td class="hidden-480">Win 95+ / OSX.2+</td>
-											<td class="hidden-480">-</td>
-											<td class="hidden-480">A</td>
-											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-										<tr >
-											<td>6</td>
-											<td>aaa</td>
-											<td>Opera for Wii</td>
-											<td class="hidden-480">Wii</td>
-											<td class="hidden-480">-</td>
-											<td class="hidden-480">A</td>
-											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-										<tr >
-											<td>7</td>
-											<td>aaa</td>
-											<td>Nokia N800</td>
-											<td class="hidden-480">N800</td>
-											<td class="hidden-480">-</td>
-											<td class="hidden-480">A</td>
-											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-										<tr >
-											<td>8</td>
-											<td>aaa</td>
-											<td>Nintendo DS browser</td>
-											<td class="hidden-480">Nintendo DS</td>
-											<td class="hidden-480">8.5</td>
-											<td class="hidden-480">C/A<sup>1</sup></td>
-											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-										
-										<tr >
-											<td>9</td>
-											<td>aaa</td>
-											<td>Nintendo DS browser</td>
-											<td class="hidden-480">Nintendo DS</td>
-											<td class="hidden-480">8.5</td>
-											<td class="hidden-480">C/A<sup>1</sup></td>
-											<td class="hidden-480"><a href="#">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>									 -->
+									</c:forEach>									
 									</tbody>
 								</table>
 							</div>
@@ -244,6 +166,15 @@
 		   App.init();
 		   TableAdvanced.init();
 		});
+	</script>
+	
+	<script type="text/javascript">
+		function del(){
+			if(confirm("您确认删除该记录吗?")){
+				return true;
+			}
+			return false;
+		}
 	</script>
 
 <script type="text/javascript">  var _gaq = _gaq || [];  _gaq.push(['_setAccount', 'UA-37564768-1']);  _gaq.push(['_setDomainName', 'keenthemes.com']);  _gaq.push(['_setAllowLinker', true]);  _gaq.push(['_trackPageview']);  (function() {    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();</script></body>
