@@ -18,4 +18,12 @@ public class AutoUtils {
 	public static String getApiId(){
 		return "A" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(System.currentTimeMillis());
 	}
+	
+	/**
+	 * 生成用例ID
+	 * @return
+	 */
+	public static String getCaseId(){
+		return "C" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(System.currentTimeMillis());
+	}
 }
