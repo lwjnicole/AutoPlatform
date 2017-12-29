@@ -58,7 +58,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li >
-							<a href="${pageContext.request.contextPath}/view/caseList.jsp">
+							<a href="${pageContext.request.contextPath}/CaseServlet?method=findAllCase">
 							用例列表</a>
 						</li>
 					</ul>

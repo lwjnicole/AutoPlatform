@@ -33,20 +33,6 @@
 		<!-- BEGIN PAGE -->
 		<div class="page-content">
 
-			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-
-	<!-- 		<div id="portlet-config" class="modal hide">
-				<div class="modal-header">
-					<button data-dismiss="modal" class="close" type="button"></button>
-					<h3>portlet Settings</h3>
-				</div>
-				<div class="modal-body">
-					<p>Here will be a configuration form</p>
-				</div>
-			</div> -->
-
-			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-
 			<!-- BEGIN PAGE CONTAINER-->        
 			<div class="container-fluid">
 				<!-- BEGIN PAGE HEADER-->
@@ -95,8 +81,9 @@
 											<label><input type="checkbox" checked data-column="3">业务模块</label>
 											<label><input type="checkbox" checked data-column="4">接口地址</label>
 											<label><input type="checkbox" checked data-column="5">请求参数</label>
-											<label><input type="checkbox" checked data-column="6">检查点</label>			
-											<label><input type="checkbox" checked data-column="7">操作</label>										<!-- <label><input type="checkbox" checked data-column="5">看一看</label> -->
+											<label><input type="checkbox" checked data-column="6">检查点</label>
+											<label><input type="checkbox" checked data-column="7">创建时间</label>				
+											<label><input type="checkbox" checked data-column="8">操作</label>										<!-- <label><input type="checkbox" checked data-column="5">看一看</label> -->
 										</div>
 									</div>
 								</div>
@@ -104,7 +91,7 @@
 										<div class="portlet-body">
 								<div class="clearfix">
 									<div class="btn-group">
-										<a id="sample_editable_1_new" class="btn green" role="button" href="${pageContext.request.contextPath}/view/addCase.jsp">
+										<a id="sample_editable_1_new" class="btn green" role="button" href="${pageContext.request.contextPath}/CaseServlet?method=addCaseUI">
 										新增&nbsp;&nbsp;<i class="icon-plus"></i>
 										</a>
 									</div>
@@ -122,108 +109,25 @@
 											<th class="hidden-480">接口地址</th>
 											<th class="hidden-480">请求参数</th>
 											<th class="hidden-480">检查点</th>
+											<th class="hidden-480">创建时间</th>
 											<th class="hidden-480">操作</th>
 										</tr>
 									</thead>
 
 									<tbody>
+									<c:forEach var="c" items="${caseLisVo }">
 										<tr>
-											<td>login_1</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
+											<td>${c.cid }</td>
+											<td>${c.cname }</td>
+											<td class="hidden-480">${c.sname }</td>
+											<td class="hidden-480">${c.cbusiness }</td>
+											<td class="hidden-480">${c.curl }</td>
+											<td class="hidden-480">${c.cparam }</td>
+											<td class="hidden-480">${c.cresult }</td>
+											<td class="hidden-480">${c.createTime }</td>
 											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
 										</tr>
-
-										<tr>
-											<td>login_2</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-										<tr>
-											<td>login_3</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-									<tr>
-											<td>login_4</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-										<tr>
-											<td>login_5</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-								<tr>
-											<td>login_6</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-
-								<tr>
-											<td>login_7</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-										<tr>
-											<td>login_8</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>
-										
-										<tr>
-											<td>login_9</td>
-											<td>百度登录</td>
-											<td class="hidden-480">www.baidu.com</td>
-											<td class="hidden-480">登录</td>
-											<td class="hidden-480">www.baidu.com/login</td>
-											<td class="hidden-480">{"useid":123456,"passwd":123456}</td>
-											<td class="hidden-480">result=1</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
-										</tr>							
+									</c:forEach>							
 									</tbody>
 								</table>
 							</div>
