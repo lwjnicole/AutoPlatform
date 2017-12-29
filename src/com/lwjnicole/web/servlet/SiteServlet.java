@@ -146,6 +146,12 @@ public class SiteServlet extends BaseServlet {
 		return null;
 	}
 	
+	/**
+	 * 删除站点
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String delSite(HttpServletRequest request,HttpServletResponse response){
 		try{
 			//接收参数
