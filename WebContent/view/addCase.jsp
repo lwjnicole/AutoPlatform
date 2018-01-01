@@ -100,27 +100,28 @@
 									<div class="control-group">
 										<label class="control-label">所属站点</label>
 										<div class="controls">
-											<select class="large m-wrap" tabindex="1" name="sname">
-												  <option value ="请选择">请选择</option>
+											<select class="large m-wrap" tabindex="1" name="sname" id="snameid">
+												  <option value ="0">请选择</option>
 												<c:forEach var="s" items="${siteList }">
 												  <option value="${s.sid }">${s.sname }</option>
 												</c:forEach>
 											</select>
+											<span class="help-inline" id="snameSpan"><font style='color: red;'>${snamemsg}</font></span>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">业务模块</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" name="cbusiness"/>
-											<span class="help-inline"></span>
+											<input type="text" class="span6 m-wrap" name="cbusiness" id="cbusinessid"/>
+											<span class="help-inline" id="cbusinessSpan"><font style='color: red;'>${cbusinessmsg}</font></span>
 										</div>
 									</div>
 									
 									<div class="control-group">
 										<label class="control-label">接口地址</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" name="curl"/>
-											<span class="help-inline"></span>
+											<input type="text" class="span6 m-wrap" name="curl" id="curlid"/>
+											<span class="help-inline" id="curlSpan"><font style='color: red;'>${curlmsg}</font></span>
 										</div>
 									</div>
 								<!-- 	<div class="control-group">
@@ -134,37 +135,40 @@
 									<div class="control-group">
 										<label class="control-label">用例名称</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" name="cname"/>
-											<span class="help-inline"></span>
+											<input type="text" class="span6 m-wrap" name="cname" id="cnameid"/>
+											<span class="help-inline" id="cnameSpan"><font style='color: red;'>${cnamemsg}</font></span>
 										</div>
 									</div>
 									
 									<div class="control-group">
 										<label class="control-label">请求方法</label>
 										<div class="controls">
-											<select class="large m-wrap" tabindex="1" name="cmethod">
-												  <option value ="请选择">请选择</option>
+											<select class="large m-wrap" tabindex="1" name="cmethod" id="cmethodid">
+												  <option value ="0">请选择</option>
 												  <option value ="POST">POST</option>
 												  <option value="GET">GET</option>
 											</select>
+											<span class="help-inline" id="cmethodSpan"><font style='color: red;'>${cmethodmsg}</font></span>
 										</div>
 									</div>
 									
 									<div class="control-group">
 										<label class="control-label">请求参数</label>
 										<div class="controls">
-											<textarea class="span6 m-wrap" rows="3" name="cparam"></textarea>
+											<textarea class="span6 m-wrap" rows="3" name="cparam" id="cparamid"></textarea>
+											<span class="help-inline" id="cparamSpan"><font style='color: red;'>${cparammsg}</font></span>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">检查点</label>
 										<div class="controls">
-											<textarea class="span6 m-wrap" rows="3" name="cresult"></textarea>
+											<textarea class="span6 m-wrap" rows="3" name="cresult" id="cresultid"></textarea>
+											<span class="help-inline" id="cresultSpan"><font style='color: red;'>${cresultmsg}</font></span>
 										</div>
 									</div>
 									
 									<div class="form-actions">
-										<button type="submit" class="btn blue">保存</button>
+										<button type="submit" class="btn blue" id="submit">保存</button>
 										&nbsp;&nbsp;
 										<button type="button" class="btn" onclick="cancel()">取消</button>                            
 									</div>
@@ -234,12 +238,91 @@
 		   FormComponents.init();
 		});
 	</script>
-	<script>
-		function cancel(){
-			window.location.href="${pageContext.request.contextPath}/view/caseList.jsp";                      
-			
+	<script type="text/javascript">
+		function cancel() {
+			window.location.href="${pageContext.request.contextPath}/CaseServlet?method=findAllCase";
 		}
-
+	</script>
+	
+	<script type="text/javascript">
+		$(function(){
+			$("#snameid").blur(function(){
+				var snameValue = $(this).val();
+				if(snameValue == 0){
+					$("#snameSpan").html("<font style='color: red;'>请选择所属站点</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#snameSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#cbusinessid").blur(function(){
+				var cbusinessValue = $(this).val();
+				if(cbusinessValue == ""){
+					$("#cbusinessSpan").html("<font style='color: red;'>业务模块不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#cbusinessSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#curlid").blur(function(){
+				var curlValue = $(this).val();
+				if(curlValue == ""){
+					$("#curlSpan").html("<font style='color: red;'>URL不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#curlSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#cnameid").blur(function(){
+				var cnameValue = $(this).val();
+				if(cnameValue == ""){
+					$("#cnameSpan").html("<font style='color: red;'>用例名称不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#cnameSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#cmethodid").blur(function(){
+				var cmethodValue = $(this).val();
+				if(cmethodValue == 0){
+					$("#cmethodSpan").html("<font style='color: red;'>请选择请求方法</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#cmethodSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#cparamid").blur(function(){
+				var cparamValue = $(this).val();
+				if(cparamValue == ""){
+					$("#cparamSpan").html("<font style='color: red;'>请求参数块不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#cparamSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#cresultid").blur(function(){
+				var cresultValue = $(this).val();
+				if(cresultValue == ""){
+					$("#cresultSpan").html("<font style='color: red;'>检查点不能为空</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#cresultSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+		})
 	</script>
 	<!-- END JAVASCRIPTS -->   
 

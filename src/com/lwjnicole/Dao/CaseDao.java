@@ -24,4 +24,10 @@ public interface CaseDao {
 
 	List<CaseVo> findAllCase() throws SQLException;
 
+	CaseVo findCaseByCid(String cid) throws SQLException;
+
+	void updateCase(Cases cases) throws SQLException;
+
+	void delCaseByCid(String cid) throws SQLException;
+
 }

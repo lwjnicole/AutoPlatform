@@ -83,7 +83,36 @@ public class CaseServlet extends BaseServlet {
 	    	String cmethod = request.getParameter("cmethod");
 	    	String cparam = request.getParameter("cparam");
 	    	String cresult = request.getParameter("cresult");
-	    	//封装参数
+	    	
+	    	if(sid.equals("0")){
+				request.setAttribute("snamemsg", "请选择所属站点");
+				return "/CaseServlet?method=addCaseUI";
+			}
+			if(cbusiness.equals("")){
+				request.setAttribute("cbusinessmsg", "业务模块不能为空");
+				return "/CaseServlet?method=addCaseUI";
+			}
+			if(cname.equals("")){
+				request.setAttribute("cnamemsg", "用例名称不能为空");
+				return "/CaseServlet?method=addCaseUI";
+			}
+			if(curl.equals("")){
+				request.setAttribute("curlmsg", "URL不能为空");
+				return "/CaseServlet?method=addCaseUI";
+			}
+			if(cmethod.equals("0")){
+				request.setAttribute("cmethodmsg", "请选择请求方法");
+				return "/CaseServlet?method=addCaseUI";
+			}
+			if(cparam.equals("")){
+				request.setAttribute("cparammsg", "请求参数不能为空");
+				return "/CaseServlet?method=addCaseUI";
+			}
+			if(cresult.equals("")){
+				request.setAttribute("cresultmsg", "检查点不能为空");
+				return "/CaseServlet?method=addCaseUI";
+			}
+	    	//封装参数	    	
 	    	Cases cases = new Cases();
 	    	cases.setCbusiness(cbusiness);
 	    	cases.setCurl(curl);
@@ -107,4 +136,95 @@ public class CaseServlet extends BaseServlet {
 		}
 		return null;
     }
+    
+    /**
+     * 跳转到用例编辑页面
+     * @param request
+     * @param response
+     * @return
+     */
+    public String editCaseUI(HttpServletRequest request,HttpServletResponse response){
+		try{
+			//接收参数
+	    	String cid = request.getParameter("cid");
+	    	//调用业务层
+	    	SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+	    	List<Site> siteList = siteService.findAllSite();
+	    	request.setAttribute("siteList", siteList);
+	    	
+	    	CaseService caseService = (CaseService) BeanFactory.getBean("caseService");
+	    	CaseVo caseVo = caseService.findCaseByCid(cid);
+	    	request.setAttribute("caseVo", caseVo);
+	    	//页面跳转
+	    	return "/view/editCase.jsp";
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}	
+    }
+    
+    /**
+     * 更新用例数据的执行方法
+     * @param request
+     * @param response
+     * @return
+     */
+    public String updateCase(HttpServletRequest request,HttpServletResponse response){
+		try{
+			//接收参数
+	    	String cid = request.getParameter("cid");
+	    	String sid = request.getParameter("sname");
+	    	String cbusiness = request.getParameter("cbusiness");
+	    	String curl = request.getParameter("curl");
+	    	String cname = request.getParameter("cname");
+	    	String cmethod = request.getParameter("cmethod");
+	    	String cparam = request.getParameter("cparam");
+	    	String cresult = request.getParameter("cresult");
+	    	//封装参数
+	    	Cases cases = new Cases();
+	    	cases.setCid(cid);
+	    	cases.setCbusiness(cbusiness);
+	    	cases.setCurl(curl);
+	    	cases.setCname(cname);
+	    	cases.setCmethod(cmethod);
+	    	cases.setCparam(cparam);
+	    	cases.setCresult(cresult);
+	    	SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
+	    	Site site = siteService.findSiteById(sid);
+	    	cases.setSite(site);   	
+	    	//调用业务层
+	    	CaseService caseService = (CaseService) BeanFactory.getBean("caseService");
+	    	caseService.updateCase(cases);
+	    	//页面跳转
+	    	response.sendRedirect(request.getContextPath() + "/CaseServlet?method=findAllCase");    	
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+		return null;
+    }
+    
+    /**
+     * 删除用例
+     * @param request
+     * @param response
+     * @return
+     */
+    public String delCaseByCid(HttpServletRequest request,HttpServletResponse response){
+		try{
+			//接收参数
+	    	String cid = request.getParameter("cid");
+	    	//调用业务层
+	    	CaseService caseService = (CaseService) BeanFactory.getBean("caseService");
+	    	caseService.delCaseByCid(cid);		
+	    	//页面跳转
+	    	response.sendRedirect(request.getContextPath() + "/CaseServlet?method=findAllCase");
+	    	
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+		return null;
+    }
+    
 }

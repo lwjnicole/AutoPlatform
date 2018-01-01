@@ -77,7 +77,7 @@ var TableAdvanced = function () {
             "aoColumnDefs": [
                 { "aTargets": [ 0 ] }
             ],
-            "aaSorting": [[0, 'asc']],//按第一列升序排列
+            "aaSorting": [[7, 'desc']],//按第一列升序排列
              "aLengthMenu": [
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here

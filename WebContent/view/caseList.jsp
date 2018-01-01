@@ -125,7 +125,7 @@
 											<td class="hidden-480">${c.cparam }</td>
 											<td class="hidden-480">${c.cresult }</td>
 											<td class="hidden-480">${c.createTime }</td>
-											<td class="hidden-480"><a href="${pageContext.request.contextPath}/view/editCase.jsp">编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
+											<td class="hidden-480"><a href="${pageContext.request.contextPath}/CaseServlet?method=editCaseUI&cid=${c.cid }">编辑</a>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/CaseServlet?method=delCaseByCid&cid=${c.cid}" onclick="return del()">删除</a></td>
 										</tr>
 									</c:forEach>							
 									</tbody>
@@ -167,6 +167,15 @@
 		   App.init();
 		   TableAdvanced.init();
 		});
+	</script>
+	
+	<script type="text/javascript">
+		function del(){
+			if(confirm("您确认删除该记录吗?")){
+				return true;
+			}
+			return false;
+		}
 	</script>
 
 <script type="text/javascript">  var _gaq = _gaq || [];  _gaq.push(['_setAccount', 'UA-37564768-1']);  _gaq.push(['_setDomainName', 'keenthemes.com']);  _gaq.push(['_setAllowLinker', true]);  _gaq.push(['_trackPageview']);  (function() {    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();</script></body>

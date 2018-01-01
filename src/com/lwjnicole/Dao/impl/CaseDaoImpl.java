@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.lwjnicole.Dao.CaseDao;
@@ -43,9 +44,39 @@ public class CaseDaoImpl implements CaseDao {
 	@Override
 	public List<CaseVo> findAllCase() throws SQLException {
 		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
-		String sql = "select c.cid,c.cname,c.cbusiness,c.curl,c.cmethod,c.cparam,c.cresult,c.create_time,c.sid,s.sname from a_case c left join site s on c.sid=s.sid";
+		String sql = "select c.cid,c.cname,c.cbusiness,c.curl,c.cmethod,c.cparam,c.cresult,c.create_time,c.sid,s.sname from a_case c left join site s on c.sid=s.sid order by c.create_time desc";
 		List<CaseVo> caseListVo = qr.query(sql, new BeanListHandler<CaseVo>(CaseVo.class));
 		return caseListVo;
+	}
+
+	/**
+	 * 根据cid查询用例数据
+	 * @throws SQLException 
+	 */
+	@Override
+	public CaseVo findCaseByCid(String cid) throws SQLException {
+		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "select cname,cbusiness,curl,cmethod,cparam,cresult,sid,cid from a_case where cid = ?";
+		CaseVo caseVo = qr.query(sql, new BeanHandler<CaseVo>(CaseVo.class), cid);
+		return caseVo;
+	}
+
+	/**
+	 * 更新用例
+	 * @throws SQLException 
+	 */
+	@Override
+	public void updateCase(Cases cases) throws SQLException {
+		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "update a_case set cname=?,cbusiness=?,curl=?,cmethod=?,cparam=?,cresult=?,sid=? where cid = ?";
+		qr.update(sql, cases.getCname(),cases.getCbusiness(),cases.getCurl(),cases.getCmethod(),cases.getCparam(),cases.getCresult(),cases.getSite().getSid(),cases.getCid());		
+	}
+
+	@Override
+	public void delCaseByCid(String cid) throws SQLException {
+		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+		String sql = "delete from a_case where cid = ?";
+		qr.update(sql, cid);
 	}
 
 }

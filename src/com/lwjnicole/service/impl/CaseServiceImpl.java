@@ -43,4 +43,34 @@ public class CaseServiceImpl implements CaseService {
 		return caseDao.findAllCase();
 	}
 
+	/**
+	 * 根据cid查询用例数据
+	 * @throws SQLException 
+	 */
+	@Override
+	public CaseVo findCaseByCid(String cid) throws SQLException {
+		CaseDao caseDao = (CaseDao) BeanFactory.getBean("caseDao");
+		return caseDao.findCaseByCid(cid);
+	}
+
+	/**
+	 * 更新用例
+	 * @throws SQLException 
+	 */
+	@Override
+	public void updateCase(Cases cases) throws SQLException {
+		CaseDao caseDao = (CaseDao) BeanFactory.getBean("caseDao");
+		caseDao.updateCase(cases);
+	}
+
+	/**
+	 * 删除用例
+	 * @throws SQLException 
+	 */
+	@Override
+	public void delCaseByCid(String cid) throws SQLException {
+		CaseDao caseDao = (CaseDao) BeanFactory.getBean("caseDao");
+		caseDao.delCaseByCid(cid);	
+	}
+
 }

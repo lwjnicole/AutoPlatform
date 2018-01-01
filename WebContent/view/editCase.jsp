@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <!-- BEGIN HEAD -->
@@ -95,21 +95,23 @@
 
 							<div class="portlet-body form">
 								<!-- BEGIN FORM-->
-								<form action="#" class="form-horizontal">
+								<form action="${pageContext.request.contextPath }/CaseServlet" class="form-horizontal" method="post">
+								<input type="hidden" name="method" value="updateCase"/>
+								<input type="hidden" name="cid" value="${caseVo.cid }"/>
 									<div class="control-group">
 										<label class="control-label">所属站点</label>
 										<div class="controls">
-											<select class="large m-wrap" tabindex="1">
-												  <option value ="请选择">请选择</option>
-												  <option value ="POST">www.baidu.com</option>
-												  <option value="GET">www.lwjnicole.com</option>
+											<select class="large m-wrap" tabindex="1" name="sname">												 
+												  <c:forEach var="s" items="${siteList }">
+												  <option value="${s.sid }" <c:if test="${s.sid == caseVo.sid }">selected="selected"</c:if>>${s.sname }</option>
+												  </c:forEach>
 											</select>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">业务模块</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" />
+											<input type="text" class="span6 m-wrap" name="cbusiness" value="${caseVo.cbusiness}"/>
 											<span class="help-inline"></span>
 										</div>
 									</div>
@@ -117,22 +119,22 @@
 									<div class="control-group">
 										<label class="control-label">接口地址</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" />
+											<input type="text" class="span6 m-wrap" name="curl" value="${caseVo.curl }"/>
 											<span class="help-inline"></span>
 										</div>
 									</div>
-									<div class="control-group">
+									<!-- <div class="control-group">
 										<label class="control-label">用例ID</label>
 										<div class="controls">
 											<input type="text" class="span6 m-wrap" />
 											<span class="help-inline"></span>
 										</div>
-									</div>
+									</div> -->
 									
 									<div class="control-group">
 										<label class="control-label">用例名称</label>
 										<div class="controls">
-											<input type="text" class="span6 m-wrap" />
+											<input type="text" class="span6 m-wrap" name="cname" value="${caseVo.cname }"/>
 											<span class="help-inline"></span>
 										</div>
 									</div>
@@ -140,10 +142,9 @@
 									<div class="control-group">
 										<label class="control-label">请求方法</label>
 										<div class="controls">
-											<select class="large m-wrap" tabindex="1">
-												  <option value ="请选择">请选择</option>
-												  <option value ="POST">POST</option>
-												  <option value="GET">GET</option>
+											<select class="large m-wrap" tabindex="1" name="cmethod">
+												  <option value ="POST" <c:if test="${caseVo.cmethod eq 'POST' }">selected="selected"</c:if>>POST</option>
+												  <option value="GET" <c:if test="${caseVo.cmethod eq 'GET' }">selected="selected"</c:if>>GET</option>
 											</select>
 										</div>
 									</div>
@@ -151,13 +152,13 @@
 									<div class="control-group">
 										<label class="control-label">请求参数</label>
 										<div class="controls">
-											<textarea class="span6 m-wrap" rows="3"></textarea>
+											<textarea class="span6 m-wrap" rows="3" name="cparam">${caseVo.cparam }</textarea>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">检查点</label>
 										<div class="controls">
-											<textarea class="span6 m-wrap" rows="3"></textarea>
+											<textarea class="span6 m-wrap" rows="3" name="cresult">${caseVo.cresult }</textarea>
 										</div>
 									</div>
 									
@@ -234,10 +235,8 @@
 	</script>
 	<script>
 		function cancel(){
-			window.location.href="${pageContext.request.contextPath}/view/caseList.jsp";                      
-			
+			window.location.href="${pageContext.request.contextPath}/CaseServlet?method=findAllCase";                      			
 		}
-
 	</script>
 	<!-- END JAVASCRIPTS -->   
 
