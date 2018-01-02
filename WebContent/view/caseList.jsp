@@ -198,20 +198,12 @@
 			if(checkAllId.checked == true){
 				//全选框已经被选中
 				for(i=0;i<arr.length;i++){		
-					arr[i].parentNode.classList.add("checked");
-				//	arr[i].setAttribute("checked","checked");					
+					arr[i].parentNode.classList.add("checked");					
 				}
 			}else{
 				//全选框未被全选中
 				for(i=0;i<arr.length;i++){
-					arr[i].parentNode.classList.remove("checked");
-					/* alert(arr[i].checked);
-					if(arr[i].checked == false){
-						
-						arr[i].parentNode.classList.add("checked");
-					}else{
-						arr[i].parentNode.classList.remove("checked");
-					} */
+					arr[i].parentNode.classList.remove("checked");				
 				}
 			} 
 		}

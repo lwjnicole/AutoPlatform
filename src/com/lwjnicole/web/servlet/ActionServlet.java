@@ -3,6 +3,7 @@ package com.lwjnicole.web.servlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lwjnicole.service.ActionService;
 import com.lwjnicole.service.CaseService;
 import com.lwjnicole.utils.BeanFactory;
 import com.lwjnicole.vo.CaseVo;
@@ -27,12 +28,14 @@ public class ActionServlet extends BaseServlet {
 		//调用业务层
 		try{
 			CaseService caseService = (CaseService) BeanFactory.getBean("caseService");
+			ActionService actionService = (ActionService) BeanFactory.getBean("actionService");
 			for(int i=0;i<checkedCids.length;i++){
 				if(!checkedCids[i].equals("")){
 					cid = checkedCids[i];
 					CaseVo caseVo = caseService.findCaseByCid(cid);
 					System.out.println(caseVo.toString());
 					//调用测试用例的执行方法
+					actionService.action(caseVo);
 				}
 			}
 		}catch(Exception e){
