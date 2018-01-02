@@ -75,33 +75,41 @@
 										<i class="icon-angle-down"></i>
 										</a>
 										<div id="sample_2_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-											<label><input type="checkbox" checked data-column="0">用例ID</label>
-											<label><input type="checkbox" checked data-column="1">用例名称</label>					
-											<label><input type="checkbox" checked data-column="2">所属站点</label>
-											<label><input type="checkbox" checked data-column="3">业务模块</label>
-											<label><input type="checkbox" checked data-column="4">接口地址</label>
-											<label><input type="checkbox" checked data-column="5">请求参数</label>
-											<label><input type="checkbox" checked data-column="6">检查点</label>
-											<label><input type="checkbox" checked data-column="7">创建时间</label>				
-											<label><input type="checkbox" checked data-column="8">操作</label>										<!-- <label><input type="checkbox" checked data-column="5">看一看</label> -->
+											<label><input type="checkbox" checked data-column="0">全选</label>
+											<label><input type="checkbox" checked data-column="1">用例ID</label>
+											<label><input type="checkbox" checked data-column="2">用例名称</label>					
+											<label><input type="checkbox" checked data-column="3">所属站点</label>
+											<label><input type="checkbox" checked data-column="4">业务模块</label>
+											<label><input type="checkbox" checked data-column="5">接口地址</label>
+											<label><input type="checkbox" checked data-column="6">请求参数</label>
+											<label><input type="checkbox" checked data-column="7">检查点</label>
+											<label><input type="checkbox" checked data-column="8">创建时间</label>				
+											<label><input type="checkbox" checked data-column="9">操作</label>										<!-- <label><input type="checkbox" checked data-column="5">看一看</label> -->
 										</div>
 									</div>
 								</div>
 							</div>
-										<div class="portlet-body">
+							<div class="portlet-body">
 								<div class="clearfix">
-									<div class="btn-group">
+									<span class="btn-group">
 										<a id="sample_editable_1_new" class="btn green" role="button" href="${pageContext.request.contextPath}/CaseServlet?method=addCaseUI">
 										新增&nbsp;&nbsp;<i class="icon-plus"></i>
 										</a>
-									</div>
+									</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="btn-group">
+										<button id="run" class="btn green" name="runName" onclick="run()">
+										执行用例&nbsp;&nbsp;<i class="icon-play"></i>
+										</button>
+									</span>
 								</div>
 							</div>
-							
+														
 							<div class="portlet-body">
 								<table class="table table-striped table-bordered table-hover table-full-width" id="sample_2">
 									<thead>
 										<tr>
+											<th class="hidden-480"><input type="checkbox" name="checkAllName" id="checkAllId" onclick="checkAll(checkAllId)"/></th>
 											<th class="hidden-480">用例ID</th>
 											<th class="hidden-480">用例名称</th>		
 											<th class="hidden-480">所属站点</th>
@@ -117,6 +125,7 @@
 									<tbody>
 									<c:forEach var="c" items="${caseLisVo }">
 										<tr>
+											<td><input type="checkbox" name="checkName" id="checkId" value="${c.cid }"/></td>
 											<td>${c.cid }</td>
 											<td>${c.cname }</td>
 											<td class="hidden-480">${c.sname }</td>
@@ -131,6 +140,11 @@
 									</tbody>
 								</table>
 							</div>
+							
+							<form action="${pageContext.request.contextPath}/ActionServlet" id="submitCase" method="post">
+								<input type="hidden" name="method" value="runCase"/>
+								<input type="hidden" name="checkedIds" id="checkedIds"/>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -178,6 +192,47 @@
 		}
 	</script>
 
+	<script type="text/javascript">
+		function checkAll(checkAllId){
+			var arr = document.getElementsByName("checkName");
+			if(checkAllId.checked == true){
+				//全选框已经被选中
+				for(i=0;i<arr.length;i++){		
+					arr[i].parentNode.classList.add("checked");
+				//	arr[i].setAttribute("checked","checked");					
+				}
+			}else{
+				//全选框未被全选中
+				for(i=0;i<arr.length;i++){
+					arr[i].parentNode.classList.remove("checked");
+					/* alert(arr[i].checked);
+					if(arr[i].checked == false){
+						
+						arr[i].parentNode.classList.add("checked");
+					}else{
+						arr[i].parentNode.classList.remove("checked");
+					} */
+				}
+			} 
+		}
+	</script>
+	
+	<script type="text/javascript">
+		function run() {
+			//获取所有被选中的复选框，并赋值给checkedSubject
+			var checkedSubject = $('#sample_2 input[name=checkName]').parent(".checked").children();
+			var checkedIds="";
+			//循环获取选中复选框的values,这个values等于${c.cid},传递给后台，后台就能根据cid查询到相应数据，进行操作
+			checkedSubject.each(function(){			
+				//将values用逗号隔开，拼接成字符串
+				checkedIds = checkedIds + "," + $(this).val();				
+			})
+			//将checkedIds赋值给隐藏域表单
+			$("#checkedIds").val(checkedIds);
+			//提交隐藏域表单，后台才能获取到隐藏域表单中的值
+			$("#submitCase").submit();
+		}	
+	</script>
 <script type="text/javascript">  var _gaq = _gaq || [];  _gaq.push(['_setAccount', 'UA-37564768-1']);  _gaq.push(['_setDomainName', 'keenthemes.com']);  _gaq.push(['_setAllowLinker', true]);  _gaq.push(['_trackPageview']);  (function() {    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();</script></body>
 <!-- END BODY -->
 </html>
