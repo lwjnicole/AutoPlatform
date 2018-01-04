@@ -1,7 +1,5 @@
 package com.lwjnicole.service;
 
-import com.lwjnicole.vo.CaseVo;
-
 /**
  *
  * <b>类名：</b>ActionService.java<br>
@@ -16,6 +14,7 @@ import com.lwjnicole.vo.CaseVo;
  */
 public interface ActionService {
 
-	void action(CaseVo caseVo);
+	void action();
+
 
 }
