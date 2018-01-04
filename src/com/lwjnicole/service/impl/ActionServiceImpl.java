@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.TestNG;
+import org.testng.xml.XmlClass;
+import org.testng.xml.XmlSuite;
+import org.testng.xml.XmlTest;
 
 import com.lwjnicole.service.ActionService;
+import com.lwjnicole.web.listener.ExtentIReporterListener;
 
 /**
  *
@@ -27,11 +31,29 @@ public class ActionServiceImpl implements ActionService {
 	@Override
 	public void action() {
 		//执行testng,在testng.xml中定义需要执行的测试类
-		 TestNG testNG = new TestNG();
+		 /*TestNG testNG = new TestNG();
 		 List<String> suites = new ArrayList<String>(); 
 		 suites.add(".\\testng.xml");
 		 testNG.setTestSuites(suites);
-		 testNG.run();		
+		 testNG.run();		*/
+		
+		//动态生成testng.xml文件，生成一个在内存中存在的虚拟testng.xml
+		XmlSuite suite = new XmlSuite();
+		suite.setName("Suite");
+
+		XmlTest test = new XmlTest(suite);
+		test.setName("Test");
+		List<XmlClass> classes = new ArrayList<XmlClass>();
+		classes.add(new XmlClass("com.lwjnicole.test.ApiTestFactory"));
+		test.setXmlClasses(classes);
+		//将这个XmlSuite传递给TestNG
+		List<XmlSuite> suites = new ArrayList<XmlSuite>();
+		suites.add(suite);
+		ExtentIReporterListener extentIReporterListener = new ExtentIReporterListener();
+		TestNG tng = new TestNG();
+		tng.addListener(extentIReporterListener);
+		tng.setXmlSuites(suites);
+		tng.run(); 
 	}
 	
 }
