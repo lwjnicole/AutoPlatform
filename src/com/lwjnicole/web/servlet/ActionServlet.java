@@ -1,12 +1,14 @@
 package com.lwjnicole.web.servlet;
 
+import java.io.File;
+import java.io.FileWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lwjnicole.service.ActionService;
-import com.lwjnicole.service.CaseService;
 import com.lwjnicole.utils.BeanFactory;
-import com.lwjnicole.vo.CaseVo;
+import com.lwjnicole.utils.PropertiesUtils;
 
 /**
  * 测试用例的执行servlet
@@ -22,27 +24,22 @@ public class ActionServlet extends BaseServlet {
      */
 	public String runCase(HttpServletRequest request,HttpServletResponse response){
 		//接收参数
-		String cid = request.getParameter("checkedIds");
-		//进行分割，存到数组
-		String checkedCids[] = cid.split(",");
-		//调用业务层
-		try{
-			CaseService caseService = (CaseService) BeanFactory.getBean("caseService");
-			ActionService actionService = (ActionService) BeanFactory.getBean("actionService");
-			for(int i=0;i<checkedCids.length;i++){
-				if(!checkedCids[i].equals("")){
-					cid = checkedCids[i];
-					CaseVo caseVo = caseService.findCaseByCid(cid);
-					System.out.println(caseVo.toString());
-					//调用测试用例的执行方法
-					actionService.action(caseVo);
-				}
+		String cid = request.getParameter("checkedIds");		
+		File file = new File(PropertiesUtils.getValues("Action_Dir"));			
+		try {
+			if(!file.exists()){
+				file.createNewFile();
 			}
-		}catch(Exception e){
+			FileWriter fw = new FileWriter(file);
+			fw.write(cid);
+			fw.close();
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException();
 		}
-		
+		ActionService actionService = (ActionService) BeanFactory.getBean("actionService");
+		//调用业务层的执行用例方法
+		actionService.action();
+				
 		return null;
 		
 	}
