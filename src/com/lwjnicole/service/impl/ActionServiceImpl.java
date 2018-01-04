@@ -6,8 +6,6 @@ import java.util.List;
 import org.testng.TestNG;
 
 import com.lwjnicole.service.ActionService;
-import com.lwjnicole.utils.CreateFileUtils;
-import com.lwjnicole.vo.CaseVo;
 
 /**
  *
@@ -27,8 +25,8 @@ public class ActionServiceImpl implements ActionService {
 	 * 测试用例的执行方法
 	 */
 	@Override
-	public void action(CaseVo caseVo) {
-		CreateFileUtils.CreateJavaFile(caseVo);
+	public void action() {
+		//执行testng,在testng.xml中定义需要执行的测试类
 		 TestNG testNG = new TestNG();
 		 List<String> suites = new ArrayList<String>(); 
 		 suites.add(".\\testng.xml");
