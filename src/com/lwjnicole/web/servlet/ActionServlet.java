@@ -33,13 +33,17 @@ public class ActionServlet extends BaseServlet {
 			FileWriter fw = new FileWriter(file);
 			fw.write(cid);
 			fw.close();
+			
+			ActionService actionService = (ActionService) BeanFactory.getBean("actionService");
+			//调用业务层的执行用例方法
+			actionService.action();
+			
+			//页面跳转
+			response.sendRedirect(request.getContextPath() + "/CaseServlet?method=findAllCase");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ActionService actionService = (ActionService) BeanFactory.getBean("actionService");
-		//调用业务层的执行用例方法
-		actionService.action();
-				
+		
 		return null;
 		
 	}
