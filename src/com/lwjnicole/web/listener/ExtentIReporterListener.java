@@ -3,6 +3,9 @@ package com.lwjnicole.web.listener;
 import java.io.File;
 import java.util.*;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
 import org.testng.xml.XmlSuite;
 import org.testng.*;
 
@@ -15,11 +18,12 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class ExtentIReporterListener implements IReporter {
-    //报告的生成路径以及文件名
-    private static final String OUTPUT_FOLDER = "test-output/";
-    private static final String FILE_NAME = "index.html";
-
+public class ExtentIReporterListener implements ServletContextListener , IReporter {
+	public static String realPath = "";
+	//报告的生成路径以及文件名
+	public String output_folder = realPath + "report";
+    private static final String FILE_NAME = "/report.html";
+  
     private ExtentReports extent;
 
     @Override
@@ -103,11 +107,11 @@ public class ExtentIReporterListener implements IReporter {
 
     private void init() {
         //文件夹不存在的话进行创建
-        File reportDir= new File(OUTPUT_FOLDER);
+        File reportDir= new File(output_folder);
         if(!reportDir.exists()&& !reportDir .isDirectory()){
             reportDir.mkdir();
         }
-        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(OUTPUT_FOLDER + FILE_NAME);
+        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(output_folder + FILE_NAME);
         htmlReporter.config().setDocumentTitle("api-AutoTest-Report");
         htmlReporter.config().setReportName("api-AutoTest-Report");
         htmlReporter.config().setChartVisibilityOnOpen(true);
@@ -206,4 +210,14 @@ public class ExtentIReporterListener implements IReporter {
         calendar.setTimeInMillis(millis);
         return calendar.getTime();
     }
+
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		realPath = sce.getServletContext().getRealPath("/");
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		
+	}
 }
