@@ -1,5 +1,7 @@
 package com.lwjnicole.test;
 
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.response.Response;
 import com.lwjnicole.vo.CaseVo;
 import org.testng.annotations.Test;
 
@@ -15,6 +17,12 @@ public class ApiTest {
 	
 	@Test
 	public void myTest(){
-		System.out.println(caseVo.getCmethod()+","+caseVo.getCurl()+","+caseVo.getCresult()+","+caseVo.getCparam());
+		String cmethod = caseVo.getCmethod();
+		String curl = caseVo.getCurl();
+		String cparam = caseVo.getCparam();
+		if("GET".equals(cmethod)){
+			Response response = RestAssured.get(curl+cparam);
+			System.out.println(response.asString());
+		}
 	}
 }
