@@ -65,14 +65,14 @@
 				</li>
 
 				<li class="last ">
-					<a href="charts.html">
+					<a href="#">
 					<i class="icon-briefcase"></i> 
 					<span class="title">测试执行</span>
 					</a>
 				</li>
 				
 				<li class="last ">
-					<a href="charts.html">
+					<a href="${pageContext.request.contextPath}/report/report.html">
 					<i class="icon-sitemap"></i> 
 					<span class="title">测试报告</span>
 					</a>
