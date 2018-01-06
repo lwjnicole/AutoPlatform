@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.lwjnicole.service.ActionService;
 import com.lwjnicole.utils.BeanFactory;
-import com.lwjnicole.utils.PropertiesUtils;
 
 /**
  * 测试用例的执行servlet
@@ -24,8 +23,15 @@ public class ActionServlet extends BaseServlet {
      */
 	public String runCase(HttpServletRequest request,HttpServletResponse response){
 		//接收参数
-		String cid = request.getParameter("checkedIds");		
-		File file = new File(PropertiesUtils.getValues("Action_Dir"));			
+		String cid = request.getParameter("checkedIds");
+		String relPath = this.getServletContext().getRealPath("/") + "action";
+		File fileRelPath = new File(relPath);
+		
+		if(!fileRelPath.exists() && !fileRelPath.isDirectory()){
+			fileRelPath.mkdir();
+		}
+		
+		File file = new File(relPath+"/actionIds.txt");
 		try {
 			if(!file.exists()){
 				file.createNewFile();
