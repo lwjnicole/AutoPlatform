@@ -21,7 +21,7 @@ import com.lwjnicole.vo.CaseVo;
  * @author user
  *
  */
-public class ApiTestFactory {
+public class ApiTestFactory{
 	@DataProvider(name = "datasource")
 	public static Object[][] datasource(){
 		CaseService caseService = (CaseService) BeanFactory.getBean("caseService");
