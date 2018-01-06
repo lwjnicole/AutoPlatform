@@ -72,21 +72,21 @@
 				</li>
 				
 				<li class="last ">
-					<a href="${pageContext.request.contextPath}/report/report.html">
+					<a href="${pageContext.request.contextPath}/report/report.html" target="_blank">
 					<i class="icon-sitemap"></i> 
 					<span class="title">测试报告</span>
 					</a>
 				</li>
 				
 				<li class="last ">
-					<a href="charts.html">
+					<a href="#">
 					<i class="icon-file-text"></i> 
 					<span class="title">环境管理</span>
 					</a>
 				</li>
 				
 				<li class="last ">
-					<a href="charts.html">
+					<a href="#">
 					<i class="icon-bar-chart"></i> 
 					<span class="title">文档管理</span>
 					</a>
