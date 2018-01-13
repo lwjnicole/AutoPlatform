@@ -81,6 +81,8 @@ public class CaseServlet extends BaseServlet {
 	    	String curl = request.getParameter("curl");
 	    	String cname = request.getParameter("cname");
 	    	String cmethod = request.getParameter("cmethod");
+	    	String cheader = request.getParameter("cheader");   	
+	    	String cparamtype = request.getParameter("cparamtype");
 	    	String cparam = request.getParameter("cparam");
 	    	String cresult = request.getParameter("cresult");
 	    	
@@ -104,6 +106,10 @@ public class CaseServlet extends BaseServlet {
 				request.setAttribute("cmethodmsg", "请选择请求方法");
 				return "/CaseServlet?method=addCaseUI";
 			}
+			if(cparamtype.equals("0")){
+				request.setAttribute("cparamtypemsg", "请选择参数类型");
+				return "/CaseServlet?method=addCaseUI";
+			}
 			if(cparam.equals("")){
 				request.setAttribute("cparammsg", "请求参数不能为空");
 				return "/CaseServlet?method=addCaseUI";
@@ -118,6 +124,8 @@ public class CaseServlet extends BaseServlet {
 	    	cases.setCurl(curl);
 	    	cases.setCname(cname);
 	    	cases.setCmethod(cmethod);
+	    	cases.setCheader(cheader);
+	    	cases.setCparamtype(cparamtype);	    	
 	    	cases.setCparam(cparam);
 	    	cases.setCresult(cresult);
 	    	cases.setCreate_time(new Date());
@@ -178,6 +186,8 @@ public class CaseServlet extends BaseServlet {
 	    	String curl = request.getParameter("curl");
 	    	String cname = request.getParameter("cname");
 	    	String cmethod = request.getParameter("cmethod");
+	    	String cheader = request.getParameter("cheader");
+	    	String cparamtype = request.getParameter("cparamtype"); 
 	    	String cparam = request.getParameter("cparam");
 	    	String cresult = request.getParameter("cresult");
 	    	//封装参数
@@ -187,6 +197,8 @@ public class CaseServlet extends BaseServlet {
 	    	cases.setCurl(curl);
 	    	cases.setCname(cname);
 	    	cases.setCmethod(cmethod);
+	    	cases.setCheader(cheader);
+	    	cases.setCparamtype(cparamtype);
 	    	cases.setCparam(cparam);
 	    	cases.setCresult(cresult);
 	    	SiteService siteService = (SiteService) BeanFactory.getBean("siteService");
