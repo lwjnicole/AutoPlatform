@@ -21,6 +21,8 @@ public class Cases {
 	private String cbusiness;
 	private String curl;
 	private String cmethod;
+	private String cheader;
+	private String cparamtype;
 	private String cparam;
 	private String cresult;
 	private Date create_time;
@@ -61,6 +63,19 @@ public class Cases {
 	public void setCmethod(String cmethod) {
 		this.cmethod = cmethod;
 	}
+	
+	public String getCheader() {
+		return cheader;
+	}
+	public void setCheader(String cheader) {
+		this.cheader = cheader;
+	}
+	public String getCparamtype() {
+		return cparamtype;
+	}
+	public void setCparamtype(String cparamtype) {
+		this.cparamtype = cparamtype;
+	}
 	public String getCparam() {
 		return cparam;
 	}
@@ -85,11 +100,12 @@ public class Cases {
 	public void setSite(Site site) {
 		this.site = site;
 	}
+	
 	@Override
 	public String toString() {
 		return "Cases [id=" + id + ", cid=" + cid + ", cname=" + cname + ", cbusiness=" + cbusiness + ", curl=" + curl
-				+ ", cmethod=" + cmethod + ", cparam=" + cparam + ", cresult=" + cresult + ", create_time="
-				+ create_time + ", site=" + site + "]";
+				+ ", cmethod=" + cmethod + ", cheader=" + cheader + ", cparamtype=" + cparamtype + ", cparam=" + cparam
+				+ ", cresult=" + cresult + ", create_time=" + create_time + ", site=" + site + "]";
 	}
 	public Cases() {
 		super();

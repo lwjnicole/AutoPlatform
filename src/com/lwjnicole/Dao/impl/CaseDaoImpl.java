@@ -33,8 +33,8 @@ public class CaseDaoImpl implements CaseDao {
 	@Override
 	public void addCase(Cases cases) throws SQLException {
 		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
-		String sql = "insert into a_case (cid,cname,cbusiness,curl,cmethod,cparam,cresult,create_time,sid) values (?,?,?,?,?,?,?,?,?)";
-		qr.update(sql, cases.getCid(),cases.getCname(),cases.getCbusiness(),cases.getCurl(),cases.getCmethod(),cases.getCparam(),cases.getCresult(),cases.getCreate_time(),cases.getSite().getSid());
+		String sql = "insert into a_case (cid,cname,cbusiness,curl,cmethod,cheader,cparamtype,cparam,cresult,create_time,sid) values (?,?,?,?,?,?,?,?,?,?,?)";
+		qr.update(sql, cases.getCid(),cases.getCname(),cases.getCbusiness(),cases.getCurl(),cases.getCmethod(),cases.getCheader(),cases.getCparamtype(),cases.getCparam(),cases.getCresult(),cases.getCreate_time(),cases.getSite().getSid());
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class CaseDaoImpl implements CaseDao {
 	@Override
 	public CaseVo findCaseByCid(String cid) throws SQLException {
 		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
-		String sql = "select cname,cbusiness,curl,cmethod,cparam,cresult,sid,cid from a_case where cid = ?";
+		String sql = "select cname,cbusiness,curl,cmethod,cheader,cparamtype,cparam,cresult,sid,cid from a_case where cid = ?";
 		CaseVo caseVo = qr.query(sql, new BeanHandler<CaseVo>(CaseVo.class), cid);
 		return caseVo;
 	}
@@ -68,8 +68,8 @@ public class CaseDaoImpl implements CaseDao {
 	@Override
 	public void updateCase(Cases cases) throws SQLException {
 		QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
-		String sql = "update a_case set cname=?,cbusiness=?,curl=?,cmethod=?,cparam=?,cresult=?,sid=? where cid = ?";
-		qr.update(sql, cases.getCname(),cases.getCbusiness(),cases.getCurl(),cases.getCmethod(),cases.getCparam(),cases.getCresult(),cases.getSite().getSid(),cases.getCid());		
+		String sql = "update a_case set cname=?,cbusiness=?,curl=?,cmethod=?,cheader=?,cparamtype=?,cparam=?,cresult=?,sid=? where cid = ?";
+		qr.update(sql, cases.getCname(),cases.getCbusiness(),cases.getCurl(),cases.getCmethod(),cases.getCheader(),cases.getCparamtype(),cases.getCparam(),cases.getCresult(),cases.getSite().getSid(),cases.getCid());		
 	}
 
 	@Override

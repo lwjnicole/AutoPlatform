@@ -153,6 +153,28 @@
 									</div>
 									
 									<div class="control-group">
+										<label class="control-label">请求头部</label>
+										<div class="controls">
+											<input type="text" class="span6 m-wrap" name="cheader" id="cheaderid"/>
+											<span class="help-inline" id="cheaderSpan"><font style='color: red;'>${cheadermsg}</font></span>
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label class="control-label">参数类型</label>
+										<div class="controls">
+											<select class="large m-wrap" tabindex="1" name="cparamtype" id="cparamtypeid">
+												  <option value ="0">请选择</option>
+												  <option value ="FORM">Form表单</option>
+												  <option value="JSON">JSON</option>
+												  <option value="PATH">路径参数</option>
+											</select>
+											<span class="help-inline" id="cparamtypeSpan"><font style='color: red;'>${cparamtypemsg}</font></span>
+										</div>
+									</div>
+									
+									
+									<div class="control-group">
 										<label class="control-label">请求参数</label>
 										<div class="controls">
 											<textarea class="span6 m-wrap" rows="3" name="cparam" id="cparamid"></textarea>
@@ -297,6 +319,17 @@
 					$("#submit").attr({"disabled":"disabled"});
 				}else{
 					$("#cmethodSpan").html("");
+					$("#submit").removeAttr("disabled");
+				}
+			})
+			
+			$("#cparamtypeid").blur(function(){
+				var cparamtypeValue = $(this).val();
+				if(cparamtypeValue == 0){
+					$("#cparamtypeSpan").html("<font style='color: red;'>请选择参数类型</font>");
+					$("#submit").attr({"disabled":"disabled"});
+				}else{
+					$("#cparamtypeSpan").html("");
 					$("#submit").removeAttr("disabled");
 				}
 			})

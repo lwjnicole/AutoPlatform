@@ -23,6 +23,8 @@ public class CaseVo {
 	private String cbusiness;
 	private String curl;
 	private String cmethod;
+	private String cheader;
+	private String cparamtype;
 	private String cparam;
 	private String cresult;
 	private Date create_time;
@@ -62,6 +64,19 @@ public class CaseVo {
 	}
 	public String getCmethod() {
 		return cmethod;
+	}
+	
+	public String getCheader() {
+		return cheader;
+	}
+	public void setCheader(String cheader) {
+		this.cheader = cheader;
+	}
+	public String getCparamtype() {
+		return cparamtype;
+	}
+	public void setCparamtype(String cparamtype) {
+		this.cparamtype = cparamtype;
 	}
 	public void setCmethod(String cmethod) {
 		this.cmethod = cmethod;
@@ -108,12 +123,13 @@ public class CaseVo {
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
+
 	@Override
 	public String toString() {
 		return "CaseVo [id=" + id + ", cid=" + cid + ", cname=" + cname + ", cbusiness=" + cbusiness + ", curl=" + curl
-				+ ", cmethod=" + cmethod + ", cparam=" + cparam + ", cresult=" + cresult + ", create_time="
-				+ create_time + ", createTime=" + createTime + ", site=" + site + ", sid=" + sid + ", sname=" + sname
-				+ "]";
+				+ ", cmethod=" + cmethod + ", cheader=" + cheader + ", cparamtype=" + cparamtype + ", cparam=" + cparam
+				+ ", cresult=" + cresult + ", create_time=" + create_time + ", createTime=" + createTime + ", site="
+				+ site + ", sid=" + sid + ", sname=" + sname + "]";
 	}
 	public CaseVo() {
 		super();

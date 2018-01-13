@@ -150,6 +150,26 @@
 									</div>
 									
 									<div class="control-group">
+										<label class="control-label">请求头部</label>
+										<div class="controls">
+											<input type="text" class="span6 m-wrap" name="cheader" id="cheaderid" value="<c:out value="${caseVo.cheader }"></c:out>"/>
+											<span class="help-inline" id="cheaderSpan"></span>
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label class="control-label">参数类型</label>
+										<div class="controls">
+											<select class="large m-wrap" tabindex="1" name="cparamtype" id="cparamtypeid">												 
+												  <option value ="FORM" <c:if test="${caseVo.cparamtype eq 'FORM'}">selected="selected"</c:if>>Form表单</option>
+												  <option value="JSON" <c:if test="${caseVo.cparamtype eq 'JSON'}">selected="selected"</c:if>>JSON</option>
+												  <option value="PATH" <c:if test="${caseVo.cparamtype eq 'PATH'}">selected="selected"</c:if>>路径参数</option>
+											</select>
+											
+										</div>
+									</div>
+									
+									<div class="control-group">
 										<label class="control-label">请求参数</label>
 										<div class="controls">
 											<textarea class="span6 m-wrap" rows="3" name="cparam">${caseVo.cparam }</textarea>
